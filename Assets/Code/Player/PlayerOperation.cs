@@ -17,6 +17,8 @@ namespace Assets.Code.Player
 
         private IPlayerOperateInput _playerOperateInput;
 
+        Dictionary<string, int> _backpack = new Dictionary<string, int>();
+
         PlayerOperation()
         {
             _playerOperateInput = new PlayerMouseInput();
@@ -45,7 +47,7 @@ namespace Assets.Code.Player
             }
             else if (_playerOperateInput.UseDevice)
             {
-                UseDevice();
+                Use();
             }
         }
 
@@ -101,19 +103,31 @@ namespace Assets.Code.Player
             bombRb.AddForce(ray.direction * force, ForceMode.Impulse);
         }
 
-        void UseDevice()
+        void Use()
         {
             Ray ray = GetCameraRay();
             RaycastHit hit;
             const float maxDistance = 1f;
             if (Physics.Raycast(ray, out hit, maxDistance))
             {
-                GameObject device = hit.transform.gameObject;
+                GameObject item = hit.transform.gameObject;
                 if (Mathf.Abs(Vector3.Dot(hit.transform.forward.normalized,
                     transform.forward.normalized)) > 0.5f)
                 {
-                    if (device.TryGetComponent(out IDevice deviceController))
-                        deviceController.Operate(string.Empty);
+                    if (item.TryGetComponent(out IDevice deviceController))
+                    {
+                        string termsOfUse = deviceController.GetTermsOfUse();
+                        if (_backpack.ContainsKey(termsOfUse))
+                            deviceController.Operate(termsOfUse);
+                    }
+                    else if (item.TryGetComponent(out IUsefulItem usefulItem))
+                    {
+                        usefulItem.PickUpItem(out string name, out int count);
+                        if (_backpack.ContainsKey(name))
+                            _backpack[name] += count;
+                        else
+                            _backpack.Add(name, count);
+                    }
                 }
             }
         }
