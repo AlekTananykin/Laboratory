@@ -1,0 +1,121 @@
+﻿using Assets.Code.Player;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Assets.Code.Player
+{
+    public class PlayerOperation : MonoBehaviour
+    {
+        [SerializeField] private ParticleSystem _burst;
+
+        enum Weapon { LaserRay, Mine, Granade };
+        private Weapon _selectedWeapon = Weapon.LaserRay;
+
+        Camera _camera;
+
+        private IPlayerOperateInput _playerOperateInput;
+
+        PlayerOperation()
+        {
+            _playerOperateInput = new PlayerMouseInput();
+        }
+
+        public void Awake()
+        {
+            _camera = GameObject.FindGameObjectWithTag(
+               "PlayerCamera").GetComponent<Camera>();
+        }
+
+        void Start()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        void Update()
+        {
+            if (0 == Time.timeScale)
+                return;
+
+            if (_playerOperateInput.UseWeapon)
+            {
+                UseWeapon();
+            }
+            else if (_playerOperateInput.UseDevice)
+            {
+                UseDevice();
+            }
+        }
+
+        Ray GetCameraRay()
+        {
+            Vector3 point = new Vector3(
+                    _camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
+
+            return _camera.ScreenPointToRay(point);
+        }
+
+        void UseWeapon()
+        {
+            Ray ray = GetCameraRay();
+            switch (_selectedWeapon)
+            {
+                case Weapon.LaserRay:
+                    {
+                        ShooteByRay(ray);
+                        break;
+                    }
+            }
+        }
+
+        private void ShooteByRay(Ray ray)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (!hit.collider.TryGetComponent(out IReactToHit target))
+                    return;
+
+                if (null != target)
+                    target.ReactToHit(50);
+
+                if (null == _burst)
+                    return;
+
+                _burst.transform.position = hit.point;
+
+                _burst.transform.rotation = Quaternion.LookRotation(
+                    transform.position - hit.point);
+                _burst.Play();
+            }
+        }
+
+        private void ToThrow(GameObject bomb, Ray ray, float force)
+        {
+            bomb.transform.position =
+                transform.position + transform.forward;
+
+            Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
+            bombRb.AddForce(ray.direction * force, ForceMode.Impulse);
+        }
+
+        void UseDevice()
+        {
+            Ray ray = GetCameraRay();
+            RaycastHit hit;
+            const float maxDistance = 1f;
+            if (Physics.Raycast(ray, out hit, maxDistance))
+            {
+                GameObject device = hit.transform.gameObject;
+                if (Mathf.Abs(Vector3.Dot(hit.transform.forward.normalized,
+                    transform.forward.normalized)) > 0.5f)
+                {
+                    if (device.TryGetComponent(out IDevice deviceController))
+                        deviceController.Operate(string.Empty);
+                }
+            }
+        }
+    }
+}
