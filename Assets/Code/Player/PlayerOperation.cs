@@ -107,7 +107,7 @@ namespace Assets.Code.Player
         {
             Ray ray = GetCameraRay();
             RaycastHit hit;
-            const float maxDistance = 1f;
+            const float maxDistance = 3f;
             if (Physics.Raycast(ray, out hit, maxDistance))
             {
                 GameObject item = hit.transform.gameObject;
@@ -118,7 +118,18 @@ namespace Assets.Code.Player
                     {
                         string termsOfUse = deviceController.GetTermsOfUse();
                         if (_backpack.ContainsKey(termsOfUse))
+                        {
+                            int count = _backpack[termsOfUse];
+                            if (count > 0)
+                            {
+                                --count;
+                                if (0 == count)
+                                    _backpack.Remove(termsOfUse);
+                            }
                             deviceController.Operate(termsOfUse);
+                        }
+                        else
+                            deviceController.Operate(string.Empty);
                     }
                     else if (item.TryGetComponent(out IUsefulItem usefulItem))
                     {
