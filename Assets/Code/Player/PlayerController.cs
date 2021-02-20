@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour, IReactToHit
     {
         Health = Mathf.Clamp(Health - 
             Mathf.Abs(hitCount), 0, MaxHealth);
+
+        Debug.Log("Player Health " + Health.ToString());
     }
 
     

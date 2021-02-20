@@ -54,7 +54,7 @@ namespace DangerouseItems
                 }
             }
 
-            Debug.Log("Mine Explosion");
+            Debug.Log("Explosion");
             Destroy(this.gameObject);
         }
 
@@ -66,24 +66,6 @@ namespace DangerouseItems
             Explosion();
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (!collision.gameObject.TryGetComponent(
-                out IReactToHit reactToHit))
-                return;
-
-            Explosion();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            Debug.Log(other.gameObject.name);
-            if (!other.gameObject.TryGetComponent(
-               out IReactToHit reactToHit))
-                return;
-
-            Explosion();
-        }
 
         private void OnTriggerExit(Collider other)
         {

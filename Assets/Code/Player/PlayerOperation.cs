@@ -111,7 +111,8 @@ namespace Assets.Code.Player
             if (Physics.Raycast(ray, out hit, maxDistance))
             {
                 GameObject item = hit.transform.gameObject;
-                if (Mathf.Abs(Vector3.Dot(hit.transform.forward.normalized,
+                Vector3 hitOrientation = item.transform.position - this.transform.position;
+                if (Mathf.Abs(Vector3.Dot(hitOrientation.normalized,
                     transform.forward.normalized)) > 0.5f)
                 {
                     if (item.TryGetComponent(out IDevice deviceController))
