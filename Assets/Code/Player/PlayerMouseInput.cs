@@ -16,5 +16,7 @@ namespace Assets.Code.Player
         public bool UseWeapon => Input.GetMouseButtonDown(0);
 
         public bool UseDevice => Input.GetMouseButtonDown(1);
+
+
     }
 }
