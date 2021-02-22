@@ -1,6 +1,6 @@
 ﻿
 public interface IDevice
 {
-    void Operate(string key);
+    string Operate(string key);
     string GetTermsOfUse();
 }

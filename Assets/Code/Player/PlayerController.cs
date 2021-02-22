@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,13 @@ namespace Assets.Code.Player
             _playerOperateInput = new PlayerMouseInput();
             _weaponSystem = new PlayerWeaponSystem();
             _activitySystem = new PlayerActivitySystem(_weaponSystem);
+
+            _activitySystem.PlayerActivityMessages += PlayerActivityLog;
+        }
+
+        private void PlayerActivityLog(string msg)
+        {
+            Debug.Log(msg);
         }
 
         public void Awake()
@@ -52,8 +60,6 @@ namespace Assets.Code.Player
         {
             Health = Mathf.Clamp(Health -
                 Mathf.Abs(hitCount), 0, MaxHealth);
-
-            Debug.Log("Player Health " + Health.ToString());
         }
 
         void Update()

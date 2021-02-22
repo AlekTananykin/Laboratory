@@ -16,17 +16,19 @@ namespace Assets.Code.Player
             return _glassDoorKey;
         }
 
-        public void Operate(string key)
+        public string Operate(string key)
         {
             if (string.IsNullOrEmpty(key) || 
                 0 != _glassDoorKey.CompareTo(key))
-                return;
+                return "Need a key to open the door!";
 
-            if (_isDoorOpened)
-                return;
+            if (!_isDoorOpened)
+            {
+                _isDoorOpened = true;
+                _animator.SetBool("character_nearby", _isDoorOpened);
+            }
 
-            _isDoorOpened = true;
-            _animator.SetBool("character_nearby", _isDoorOpened);
+            return "Door is opened";
         }
 
         void Awake()

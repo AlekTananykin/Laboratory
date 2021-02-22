@@ -5,6 +5,9 @@ namespace Assets.Code.Player
 {
     internal class PlayerActivitySystem
     {
+        public delegate void ActivityMessages(string msg);
+        public event ActivityMessages PlayerActivityMessages;
+
         Dictionary<string, int> _backpack;
         IWeaponStorage _weaponStorage;
 
@@ -40,6 +43,19 @@ namespace Assets.Code.Player
                 return false;
 
             _weaponStorage.AddWeapon(weaponContainer);
+
+            if (null != PlayerActivityMessages)
+            {
+                string message;
+                if (weaponContainer.IsWeapon)
+                    message = string.Format(
+                        "You have picked up {0}. ", weaponContainer.Name);
+                else
+                    message = string.Format(
+                        "You have picked up bullets for {0}. ", weaponContainer.Name);
+
+                PlayerActivityMessages.Invoke(message);
+            }
             return true;
         }
 
@@ -58,6 +74,7 @@ namespace Assets.Code.Player
                 return false;
 
             string termsOfUse = deviceController.GetTermsOfUse();
+            string operationMessage;
             if (_backpack.ContainsKey(termsOfUse))
             {
                 int count = _backpack[termsOfUse];
@@ -67,10 +84,12 @@ namespace Assets.Code.Player
                     if (0 == count)
                         _backpack.Remove(termsOfUse);
                 }
-                deviceController.Operate(termsOfUse);
+                operationMessage = deviceController.Operate(termsOfUse);
             }
             else
-                deviceController.Operate(string.Empty);
+                operationMessage = deviceController.Operate(string.Empty);
+
+            PlayerActivityMessages?.Invoke(operationMessage);
 
             return true;
         }
@@ -86,6 +105,8 @@ namespace Assets.Code.Player
             else
                 _backpack.Add(name, count);
 
+            PlayerActivityMessages?.Invoke(string.Format(
+                "You have picked up {0}. ", name));
             return true;
         }
     }
