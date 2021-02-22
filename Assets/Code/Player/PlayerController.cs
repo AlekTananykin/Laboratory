@@ -10,7 +10,7 @@ namespace Assets.Code.Player
 
         private IPlayerOperateInput _playerOperateInput;
         private PlayerWeaponSystem _weaponSystem;
-        private PlayerOperationSystem _operationSystem;
+        private PlayerActivitySystem _activitySystem;
 
         public int Health { get; private set; }
         private int _maxHealth;
@@ -33,7 +33,7 @@ namespace Assets.Code.Player
 
             _playerOperateInput = new PlayerMouseInput();
             _weaponSystem = new PlayerWeaponSystem();
-            _operationSystem = new PlayerOperationSystem(_weaponSystem);
+            _activitySystem = new PlayerActivitySystem(_weaponSystem);
         }
 
         public void Awake()
@@ -67,7 +67,7 @@ namespace Assets.Code.Player
             }
             else if (_playerOperateInput.UseDevice)
             {
-                _operationSystem.Use(GetCameraRay(), transform);
+                _activitySystem.Use(GetCameraRay(), transform);
             }
         }
 

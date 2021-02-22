@@ -1,18 +1,14 @@
-﻿using Assets.Code.Player;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Code.Player
 {
-    public class PlayerOperationSystem
+    internal class PlayerActivitySystem
     {
-
         Dictionary<string, int> _backpack;
         IWeaponStorage _weaponStorage;
 
-        public PlayerOperationSystem(IWeaponStorage weaponStorage)
+        public PlayerActivitySystem(IWeaponStorage weaponStorage)
         {
             _backpack = new Dictionary<string, int>();
             _weaponStorage = weaponStorage;
@@ -20,39 +16,37 @@ namespace Assets.Code.Player
 
         public void Use(Ray ray, Transform playerTransform)
         {
-            RaycastHit hit;
             const float maxDistance = 3f;
-            if (!Physics.Raycast(ray, out hit, maxDistance))
+            if (!Physics.Raycast(ray, out RaycastHit hit, maxDistance))
+                return;
+
+            if (!IsAppropriatePosition(hit, playerTransform))
                 return;
 
             GameObject item = hit.transform.gameObject;
-            if (!IsAppropriatePosition(item, playerTransform))
-                return;
-
             if (TryOperateDevice(item))
                 return;
 
             if (TryPickUpUsefulItem(item))
                 return;
 
-            if (TryGetWeaponItem(item))
+            if (TryPickUpWeaponItem(item))
                 return;
         }
 
-        private bool TryGetWeaponItem(GameObject item)
+        private bool TryPickUpWeaponItem(GameObject item)
         {
-            if (!item.TryGetComponent(out IWeaponContainer deviceController))
+            if (!item.TryGetComponent(out IWeaponContainer weaponContainer))
                 return false;
 
-            _weaponStorage.AddWeapon(deviceController);
+            _weaponStorage.AddWeapon(weaponContainer);
             return true;
         }
 
-        bool IsAppropriatePosition(GameObject item, Transform playerTransform)
+        bool IsAppropriatePosition(RaycastHit hit, Transform playerTransform)
         {
-            Vector3 hitOrientation = item.transform.position - playerTransform.position;
-            if (Mathf.Abs(Vector3.Dot(hitOrientation.normalized,
-                playerTransform.forward.normalized)) > 0.5f)
+            if (Mathf.Abs(Vector3.Dot(hit.transform.forward.normalized,
+                    playerTransform.forward.normalized)) > 0.5)
                 return true;
 
             return false;

@@ -6,7 +6,7 @@ using System;
 
 namespace Assets.Code.Player
 {
-    public class PlayerWeaponSystem
+    internal sealed class PlayerWeaponSystem: IWeaponStorage
     {
         private IWeapon _selectedWeapon = null;
         private WeaponFabric _weaponFabric = null;
@@ -17,30 +17,6 @@ namespace Assets.Code.Player
             new Dictionary<string, int>();
 
         List<IWeapon> _weaponList = new List<IWeapon>();
-
-
-        //public void ShooteByRay(Ray ray)
-        //{
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(ray, out hit))
-        //    {
-        //        if (!hit.collider.TryGetComponent(out IReactToHit target))
-        //            return;
-
-        //        if (null != target)
-        //            target.ReactToHit(50);
-        //    }
-        //}
-        /*
-         *  private void ToThrow(GameObject bomb, Ray ray, float force)
-        {
-            bomb.transform.position =
-                transform.position + transform.forward;
-
-            Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
-            bombRb.AddForce(ray.direction * force, ForceMode.Impulse);
-        }
-         */
 
         public void ApplyByRay(Ray ray)
         {

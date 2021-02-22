@@ -5,6 +5,6 @@
         bool IsWeapon { get; }
 
         string Name { get; }
-        int Count { get; };
+        int Count { get; }
     }
 }
