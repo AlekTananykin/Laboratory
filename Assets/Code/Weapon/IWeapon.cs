@@ -12,7 +12,7 @@ namespace Assets.Code.Player
         string Name { get; }
         int Charge { get; }
 
-        void Recharge(int count);
+        void Recharge();
         void Apply(Ray ray);
 
     }

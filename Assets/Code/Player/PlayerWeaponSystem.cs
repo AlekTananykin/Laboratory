@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace Assets.Code.Player
 {
     public class PlayerWeaponSystem
     {
         private IWeapon _selectedWeapon = null;
+        private WeaponFabric _weaponFabric = null;
 
         Dictionary<string, IWeapon> _weapons = 
             new Dictionary<string, IWeapon>();
@@ -15,6 +17,7 @@ namespace Assets.Code.Player
             new Dictionary<string, int>();
 
         List<IWeapon> _weaponList = new List<IWeapon>();
+
 
         //public void ShooteByRay(Ray ray)
         //{
@@ -28,6 +31,16 @@ namespace Assets.Code.Player
         //            target.ReactToHit(50);
         //    }
         //}
+        /*
+         *  private void ToThrow(GameObject bomb, Ray ray, float force)
+        {
+            bomb.transform.position =
+                transform.position + transform.forward;
+
+            Rigidbody bombRb = bomb.GetComponent<Rigidbody>();
+            bombRb.AddForce(ray.direction * force, ForceMode.Impulse);
+        }
+         */
 
         public void ApplyByRay(Ray ray)
         {
@@ -67,13 +80,17 @@ namespace Assets.Code.Player
         {
             if (_catridges.TryGetValue(
                 _selectedWeapon.Name, out int bulletsCount))
-                _selectedWeapon.Recharge(bulletsCount);
+            {
+                _selectedWeapon.Recharge();
+                _catridges[_selectedWeapon.Name]--;
+            }
         }
 
-        public void AddWeapon(string name, IWeapon weapon)
+        public void AddWeapon(string name)
         {
             if (!_weapons.ContainsKey(name))
             {
+                IWeapon weapon = _weaponFabric.CreateWeapon(name);
                 _weapons.Add(name, weapon);
                 _weaponList.Add(weapon);
             }
@@ -107,7 +124,7 @@ namespace Assets.Code.Player
                 _catridges.Remove(name);
         }
 
-        public List<string> GetWeapons()
+        public List<string> GetWeaponsList()
         {
             return _weapons.Keys.ToList();
         }
@@ -117,12 +134,20 @@ namespace Assets.Code.Player
             return _selectedWeapon.Charge;
         }
 
-        public int GetSelectedWeaponCartridges()
+        public int GetSelectedWeaponCartridgesCount()
         {
             if (_catridges.TryGetValue(_selectedWeapon.Name, out int count))
                 return count;
 
             return 0;
+        }
+
+        public void AddWeapon(IWeaponContainer weaponContainer)
+        {
+            if (weaponContainer.IsWeapon)
+                AddWeapon(weaponContainer.Name);
+            else
+                AddCartridges(weaponContainer.Name, weaponContainer.Count);
         }
     }
 }
