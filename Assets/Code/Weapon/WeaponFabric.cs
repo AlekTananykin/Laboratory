@@ -13,7 +13,7 @@ namespace Assets.Code.Player
         public WeaponFabric()
         {
             _weaponStorage.Add("RayGun", new RayGun());
-            _weaponStorage.Add("Granades", new ThrowingGrenades());
+            _weaponStorage.Add("Grenades", new ThrowingGrenades());
         }
 
         public IWeapon CreateWeapon(string name)

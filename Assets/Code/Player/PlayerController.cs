@@ -48,6 +48,8 @@ namespace Assets.Code.Player
         {
             _camera = GameObject.FindGameObjectWithTag(
                "PlayerCamera").GetComponent<Camera>();
+
+            _weaponSystem.AddWeapon("Grenades");
         }
 
         void Start()
@@ -67,11 +69,12 @@ namespace Assets.Code.Player
             if (0 == Time.timeScale)
                 return;
 
+            _weaponSystem.SelectNextWeapon(_playerOperateInput.SelectWeapon);
             if (_playerOperateInput.UseWeapon)
             {
                 _weaponSystem.ApplyByRay(GetCameraRay());
             }
-            else if (_playerOperateInput.UseDevice)
+            if (_playerOperateInput.UseDevice)
             {
                 _activitySystem.Use(GetCameraRay(), transform);
             }

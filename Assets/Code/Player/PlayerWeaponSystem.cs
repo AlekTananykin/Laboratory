@@ -9,7 +9,7 @@ namespace Assets.Code.Player
     internal sealed class PlayerWeaponSystem: IWeaponStorage
     {
         private IWeapon _selectedWeapon = null;
-        private WeaponFabric _weaponFabric = null;
+        private WeaponFabric _weaponFabric = new WeaponFabric();
 
         Dictionary<string, IWeapon> _weapons = 
             new Dictionary<string, IWeapon>();
@@ -26,12 +26,16 @@ namespace Assets.Code.Player
             _selectedWeapon.Apply(ray);
         }
 
-        public void SelectNextWeapon()
+        public void SelectNextWeapon(float direction)
         {
-            if (0 == _weapons.Count)
+            if (0 == direction || 0 == _weapons.Count)
                 return;
 
-            int weaponIndex = _weaponList.IndexOf(_selectedWeapon) + 1;
+            int delta = 1;
+            if (direction < 0)
+                delta = -1;
+
+            int weaponIndex = _weaponList.IndexOf(_selectedWeapon) + delta;
             _selectedWeapon = 
                 _weaponList[weaponIndex % _weaponList.Count];
         }
@@ -85,7 +89,7 @@ namespace Assets.Code.Player
             if (_weapons.TryGetValue(name, out IWeapon weapon))
             {
                 if (_weapons.Count > 1)
-                    SelectNextWeapon();
+                    SelectNextWeapon(1.0f);
                 else
                     _selectedWeapon = null;
 

@@ -17,6 +17,7 @@ namespace Assets.Code.Player
 
         public bool UseDevice => Input.GetMouseButtonDown(1);
 
+        public float SelectWeapon => Input.mouseScrollDelta.y;
 
     }
 }

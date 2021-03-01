@@ -10,5 +10,6 @@ namespace Assets.Code.Player
     {
         bool UseWeapon { get; }
         bool UseDevice { get; }
+        float SelectWeapon { get; }
     }
 }

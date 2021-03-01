@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DangerouseItems
 {
-    public class MineScript : MonoBehaviour, IDevice, IReactToHit
+    public class MineScript : Bomb, IDevice, IReactToHit
     {
         private const string _termsOfUse = "SupplyKid";
         private const float _hitRadius = 5f;
@@ -31,40 +31,18 @@ namespace DangerouseItems
                 return "Mine has been deactivated. ";
             }
 
-            Explosion();
+            Explosion(_hitRadius, _explosionForce, _collider);
             return "Mine has been explosed. ";
         }
 
-        private void Explosion()
-        {
-            Collider[] colliders =
-                Physics.OverlapSphere(this.transform.position, _hitRadius);
-
-            Vector3 explosionPosition = transform.position;
-            foreach (Collider item in colliders)
-            {
-                if (_collider.Equals(item) ||
-                    !item.TryGetComponent(out IReactToHit hittedItem))
-                    continue;
-
-                float ditance = 
-                    (item.transform.position - explosionPosition).sqrMagnitude;
-                if (item.TryGetComponent(out IReactToHit reaction))
-                {
-                    reaction.ReactToHit((int)(_explosionForce / (ditance + 0.1f)));
-                }
-            }
-
-            Debug.Log("Explosion");
-            Destroy(this.gameObject);
-        }
+       
 
         public void ReactToHit(int hitCount)
         {
             if (hitCount <= 1)
                 return;
 
-            Explosion();
+            Explosion(_hitRadius, _explosionForce, _collider);
         }
 
 
@@ -75,7 +53,7 @@ namespace DangerouseItems
                out IReactToHit reactToHit))
                 return;
 
-            Explosion();
+            Explosion(_hitRadius, _explosionForce, _collider);
         }
 
     }
