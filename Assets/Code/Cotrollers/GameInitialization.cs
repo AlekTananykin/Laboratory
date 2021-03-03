@@ -11,7 +11,8 @@
             Player player = new Player(gameData.Player, playerInput);
             controllers.Add(player);
 
-
+            var informationScreen = new InformationScreenController(gameData);
+            controllers.Add(informationScreen);
         }
     }
 }

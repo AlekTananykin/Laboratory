@@ -24,6 +24,8 @@ namespace Lab
             }
         }
 
+        
+        public GameObject _informationScreen;
 
         private T Load<T>(string resourcePath) where T: Object =>
             Resources.Load<T>(Path.ChangeExtension(resourcePath, null));

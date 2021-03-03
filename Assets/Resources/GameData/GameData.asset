@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerModelPath: PlayerModel.asset
   _enemyDataPath: 
+  _informationScreen: {fileID: 6634267083605139675, guid: 2f3403d4f07441d47a76dae4809c3bf4, type: 3}

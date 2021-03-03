@@ -63,7 +63,7 @@ namespace Lab
         {
             for (int i = 0; i < _lateExecuteControllers.Count; ++i)
             {
-                _lateExecuteControllers[i].LateExecute(i);
+                _lateExecuteControllers[i].LateExecute(deltaTime);
             }
         }
 

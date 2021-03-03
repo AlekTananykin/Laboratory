@@ -13,6 +13,5 @@ namespace Lab
         public float _jumpSpeed;
 
         public Vector3 _position;
-
     }
 }
