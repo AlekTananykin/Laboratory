@@ -15,6 +15,6 @@ MonoBehaviour:
   _playerPrefab: {fileID: 3481360659122888567, guid: 06d586f3a686ebc4fb4b2d382f9d9fc0, type: 3}
   _health: 100
   _maxHealth: 100
-  _speed: 5
-  _jumpSpeed: 7
+  _speed: 15
+  _jumpSpeed: 4
   _position: {x: 551, y: 21, z: 349}

@@ -15,10 +15,15 @@ namespace Lab
 
         private GameObject _playerView;
         private IPlayerView _playerViewHandler;
-    
+
+        private PlayerMoveSystem _playerMoveSystem;
+        private PlayerLookSystem _playerLookSystem;
+
         public Player(PlayerModel model)
         {
             _model = model;
+            _playerMoveSystem = new PlayerMoveSystem();
+            _playerLookSystem = new PlayerLookSystem();
         }
 
         public void Initialization()
@@ -29,7 +34,6 @@ namespace Lab
             _playerView = GameObject.Instantiate(_model._playerPrefab);
             _playerView.transform.position = _model._position;
             _playerViewHandler = _playerView.GetComponent<IPlayerView>();
-
         }
 
         public void Execute(float deltaTime)
@@ -37,7 +41,20 @@ namespace Lab
             if (0 == Time.timeScale)
                 return;
 
-            _controller.Execute(Time.deltaTime);
+            _playerLookSystem.Look(out float rotationX, out float deltaRotationY);
+            _playerViewHandler.CameraTilt(rotationX);
+            _playerViewHandler.AngleOfRotation(deltaRotationY);
+
+            Vector3 movement = _playerMoveSystem.Move(
+                _playerViewHandler.IsGrounded, _model._speed, _model._jumpSpeed);
+            _playerViewHandler.Position = 
+                _playerView.transform.TransformDirection(movement);
+            
+            
+
         }
+
+
+
     }
 }

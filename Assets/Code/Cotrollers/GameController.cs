@@ -16,11 +16,6 @@ namespace Lab
             _controllers = new Controllers();
         }
 
-        private void Awake()
-        {
-           
-        }
-
         void Start()
         {
             new GameInitialization(_controllers, _gameData);

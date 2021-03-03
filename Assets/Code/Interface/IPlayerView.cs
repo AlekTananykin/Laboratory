@@ -9,7 +9,7 @@ namespace Lab
 {
     interface IPlayerView: ICameraRay
     {
-        bool IsGrounded();
+        bool IsGrounded { get; }
 
         Vector3 Position{get; set;}
 

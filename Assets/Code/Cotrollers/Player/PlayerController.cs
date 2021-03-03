@@ -14,12 +14,12 @@ namespace Lab
         private PlayerMoveSystem _playerMoveSystem;
         private ICameraRay _raySource;
 
-        internal PlayerController(float speed, float jumpSpeed, ICameraRay raySource)
+        internal PlayerController(ICameraRay raySource)
         {
             _playerOperateInput = new PlayerMouseInput();
             _weaponSystem = new PlayerWeaponSystem();
             _activitySystem = new PlayerActivitySystem(_weaponSystem);
-            _playerMoveSystem = new PlayerMoveSystem(speed, jumpSpeed);
+            _playerMoveSystem = new PlayerMoveSystem();
             _raySource = raySource;
         }
 

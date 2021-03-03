@@ -15,11 +15,15 @@ namespace Lab
                 "PlayerCamera").GetComponent<Camera>();
 
             _charController = GetComponent<CharacterController>();
+
+            Rigidbody body = GetComponent<Rigidbody>();
+            if (null != body)
+                body.freezeRotation = true;
         }
 
-        public bool IsGrounded()
+        public bool IsGrounded
         {
-            return _charController.isGrounded;
+            get => _charController.isGrounded;
         }
 
         public Ray GetCameraRay()

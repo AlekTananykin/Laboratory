@@ -7,44 +7,40 @@ namespace Lab
 {
     public sealed class PlayerMoveSystem
     {
-
-        public readonly float _speed;
         private const float _gravity = -9.8f;
-        private readonly float _jumpSpeed;
+        
 
         private float _vertSpeed = 0;
 
         private IPlayerMoveInput _playerMoveInput;
 
-        public PlayerMoveSystem(float speed, float jumpSpeed)
+        public PlayerMoveSystem()
         {
             _playerMoveInput = new PlayerKeyboardInput();
             _vertSpeed = 0;
-            _speed = speed;
-            _jumpSpeed = jumpSpeed;
         }
 
-        public Vector3 Update(bool isGrounded)
+        public Vector3 Move(bool isGrounded, float speed, float jumpSpeed)
         {
-            float deltaX = _playerMoveInput.HorizontalMove * _speed;
-            float deltaZ = _playerMoveInput.VerticalMove * _speed;
+            float deltaX = _playerMoveInput.HorizontalMove * speed;
+            float deltaZ = _playerMoveInput.VerticalMove * speed;
             Vector3 movement = new Vector3(deltaX, 0, deltaZ);
-            movement = Vector3.ClampMagnitude(movement, _speed);
+            movement = Vector3.ClampMagnitude(movement, speed);
             movement *= Time.deltaTime;
 
-            movement = ProcessVerticalMove(movement, isGrounded);
+            movement = ProcessVerticalMove(movement, jumpSpeed, isGrounded);
 
             return movement;
-            //movement = transform.TransformDirection(movement);
-            //_charController.Move(movement);
+
         }
 
-        private Vector3 ProcessVerticalMove(Vector3 movement, bool isGrounded)
+        private Vector3 ProcessVerticalMove(Vector3 movement, 
+            float jumpSpeed, bool isGrounded)
         {
             if (isGrounded)
             {
                 if (_playerMoveInput.IsJump)
-                    _vertSpeed = _jumpSpeed;
+                    _vertSpeed = jumpSpeed;
                 else
                     _vertSpeed = 0;
             }
