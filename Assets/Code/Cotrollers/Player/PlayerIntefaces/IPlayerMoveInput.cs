@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Code.Player
+namespace Lab
 {
     interface IPlayerMoveInput
     {
         float HorizontalMove { get; }
         float VerticalMove { get; }
+
+        bool IsJump { get; }
     }
 }

@@ -6,8 +6,10 @@ namespace Lab
 {
     public sealed class GameController : MonoBehaviour
     {
-        [SerializeField] private Data _data;
-        private Controllers _controllers;
+        [SerializeField] private GameData _gameData;
+
+
+        Controllers _controllers;
 
         GameController()
         {
@@ -16,11 +18,13 @@ namespace Lab
 
         private void Awake()
         {
-            new GameInitialization(_controllers, _data);
+           
         }
 
         void Start()
         {
+            new GameInitialization(_controllers, _gameData);
+
             _controllers.Initialization();
         }
 
@@ -31,7 +35,7 @@ namespace Lab
 
         void LateUpdate()
         {
-            _controllers.LateExecute(Time.deltaTime);
+           _controllers.LateExecute(Time.deltaTime);
         }
 
         private void OnDestroy()

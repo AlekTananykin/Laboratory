@@ -5,26 +5,24 @@ using UnityEngine;
 
 namespace Lab
 {
-    [CreateAssetMenu(fileName = "Data", menuName = "Data/Data")]
-    public sealed class Data : ScriptableObject
+    [CreateAssetMenu(fileName = "GameData", menuName = "GameData/GameData")]
+    public sealed class GameData : ScriptableObject
     {
-        [SerializeField] private string _playerDataPath;
+        [SerializeField] private string _playerModelPath;
         [SerializeField] private string _enemyDataPath;
 
-        private PlayerData _player;
-        public PlayerData Player
+        private PlayerModel _player;
+        public PlayerModel Player
         {
             get
             {
                 if (null == _player)
                 {
-                    _player = Load<PlayerData>("Data/" + _playerDataPath);
+                    _player = Load<PlayerModel>("GameData/" + _playerModelPath);
                 }
-
                 return _player;
             }
         }
-
 
 
         private T Load<T>(string resourcePath) where T: Object =>

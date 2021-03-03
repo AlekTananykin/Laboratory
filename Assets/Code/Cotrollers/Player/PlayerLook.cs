@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.Player
+namespace Lab
 {
     public sealed class PlayerLook : MonoBehaviour
     {
@@ -23,7 +23,6 @@ namespace Assets.Code.Player
             _playerLookInput = new PlayerMouseInput();
         }
 
-        // Start is called before the first frame update
         void Awake()
         {
             Rigidbody body = GetComponent<Rigidbody>();
@@ -33,7 +32,6 @@ namespace Assets.Code.Player
             _player = transform.parent.gameObject;
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (0 == Time.timeScale)

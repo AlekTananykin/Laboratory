@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Code.Player
+namespace Lab
 {
     sealed class PlayerMouseInput: IPlayerLookInput, IPlayerOperateInput
     {

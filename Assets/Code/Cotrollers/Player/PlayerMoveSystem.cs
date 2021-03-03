@@ -3,34 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.Player
+namespace Lab
 {
-    public sealed class PlayerMove : MonoBehaviour
+    public sealed class PlayerMoveSystem
     {
 
-        public const float _speed = 10.0f;
+        public readonly float _speed;
         private const float _gravity = -9.8f;
-        [SerializeField] private float _jumpSpeed = 12f;
+        private readonly float _jumpSpeed;
 
         private float _vertSpeed = 0;
 
-        private CharacterController _charController;
-
         private IPlayerMoveInput _playerMoveInput;
 
-        PlayerMove()
+        public PlayerMoveSystem(float speed, float jumpSpeed)
         {
             _playerMoveInput = new PlayerKeyboardInput();
-        }
-
-        void Start()
-        {
-            _charController = GetComponent<CharacterController>();
             _vertSpeed = 0;
+            _speed = speed;
+            _jumpSpeed = jumpSpeed;
         }
 
-        // Update is called once per frame
-        void Update()
+        public Vector3 Update(bool isGrounded)
         {
             float deltaX = _playerMoveInput.HorizontalMove * _speed;
             float deltaZ = _playerMoveInput.VerticalMove * _speed;
@@ -38,16 +32,18 @@ namespace Assets.Code.Player
             movement = Vector3.ClampMagnitude(movement, _speed);
             movement *= Time.deltaTime;
 
-            movement = ProcessVerticalMove(movement);
-            movement = transform.TransformDirection(movement);
-            _charController.Move(movement);
+            movement = ProcessVerticalMove(movement, isGrounded);
+
+            return movement;
+            //movement = transform.TransformDirection(movement);
+            //_charController.Move(movement);
         }
 
-        private Vector3 ProcessVerticalMove(Vector3 movement)
+        private Vector3 ProcessVerticalMove(Vector3 movement, bool isGrounded)
         {
-            if (_charController.isGrounded)
+            if (isGrounded)
             {
-                if (Input.GetButton("Jump"))
+                if (_playerMoveInput.IsJump)
                     _vertSpeed = _jumpSpeed;
                 else
                     _vertSpeed = 0;

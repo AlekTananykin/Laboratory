@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.Player
+namespace Lab
 {
     internal class PlayerActivitySystem
     {
@@ -39,23 +39,23 @@ namespace Assets.Code.Player
 
         private bool TryPickUpWeaponItem(GameObject item)
         {
-            if (!item.TryGetComponent(out IWeaponContainer weaponContainer))
-                return false;
+            //if (!item.TryGetComponent(out IWeaponContainer weaponContainer))
+            //    return false;
 
-            _weaponStorage.AddWeapon(weaponContainer);
+            //_weaponStorage.AddWeapon(weaponContainer);
 
-            if (null != PlayerActivityMessages)
-            {
-                string message;
-                if (weaponContainer.IsWeapon)
-                    message = string.Format(
-                        "You have picked up {0}. ", weaponContainer.Name);
-                else
-                    message = string.Format(
-                        "You have picked up bullets for {0}. ", weaponContainer.Name);
+            //if (null != PlayerActivityMessages)
+            //{
+            //    string message;
+            //    if (weaponContainer.IsWeapon)
+            //        message = string.Format(
+            //            "You have picked up {0}. ", weaponContainer.Name);
+            //    else
+            //        message = string.Format(
+            //            "You have picked up bullets for {0}. ", weaponContainer.Name);
 
-                PlayerActivityMessages.Invoke(message);
-            }
+            //    PlayerActivityMessages.Invoke(message);
+            //}
             return true;
         }
 
@@ -96,17 +96,17 @@ namespace Assets.Code.Player
 
         bool TryPickUpUsefulItem(GameObject item)
         {
-            if (!item.TryGetComponent(out IUsefulItem usefulItem))
-                return false;
+            //if (!item.TryGetComponent(out IUsefulItem usefulItem))
+            //    return false;
 
-            usefulItem.PickUpItem(out string name, out int count);
-            if (_backpack.ContainsKey(name))
-                _backpack[name] += count;
-            else
-                _backpack.Add(name, count);
+            //usefulItem.PickUpItem(out string name, out int count);
+            //if (_backpack.ContainsKey(name))
+            //    _backpack[name] += count;
+            //else
+            //    _backpack.Add(name, count);
 
-            PlayerActivityMessages?.Invoke(string.Format(
-                "You have picked up {0}. ", name));
+            //PlayerActivityMessages?.Invoke(string.Format(
+            //    "You have picked up {0}. ", name));
             return true;
         }
     }
