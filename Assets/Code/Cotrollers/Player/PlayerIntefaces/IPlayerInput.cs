@@ -7,11 +7,18 @@ using UnityEngine;
 
 namespace Lab
 {
-    interface IPlayerMoveInput
+    public interface IPlayerInput : IInitialization
     {
+        float MoveX { get; }
+        float MoveY { get; }
+        
         float HorizontalMove { get; }
         float VerticalMove { get; }
 
         bool IsJump { get; }
+
+        bool UseWeapon { get; }
+        bool UseDevice { get; }
+        float SelectWeapon { get; }
     }
 }

@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace Lab
 {
-    public sealed class PlayerMoveSystem
+    internal sealed class PlayerMoveSystem
     {
         private const float _gravity = -9.8f;
         
 
         private float _vertSpeed = 0;
 
-        private IPlayerMoveInput _playerMoveInput;
+        private IPlayerInput _playerMoveInput;
 
-        public PlayerMoveSystem()
+        public PlayerMoveSystem(IPlayerInput playerInput)
         {
-            _playerMoveInput = new PlayerKeyboardInput();
+            _playerMoveInput = playerInput;
             _vertSpeed = 0;
         }
 

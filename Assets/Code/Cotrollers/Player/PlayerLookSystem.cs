@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Lab
 {
-    public sealed class PlayerLookSystem
+    internal sealed class PlayerLookSystem
     {
         public float _sensHor = 9.0f;
         public float _sensVert = 9.0f;
@@ -14,13 +14,12 @@ namespace Lab
         public float _maxVert = 45.0f;
         public float _rotationX = 0;
 
-        IPlayerLookInput _playerLookInput;
+        IPlayerInput _playerLookInput;
 
-        public PlayerLookSystem()
+        public PlayerLookSystem(IPlayerInput plauerInput)
         {
-            _playerLookInput = new PlayerMouseInput();
+            _playerLookInput = plauerInput;
         }
-
 
         public void Look(out float rotationX, out float deltaRotationY)
         {

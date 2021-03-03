@@ -1,6 +1,6 @@
 ﻿namespace Lab
 {
-    interface IController
+    public interface IController
     {
     }
 }

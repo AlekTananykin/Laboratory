@@ -11,7 +11,6 @@ namespace Lab
         IExecute, IInitialization
     {
         private PlayerModel _model;
-        private PlayerController _controller;
 
         private GameObject _playerView;
         private IPlayerView _playerViewHandler;
@@ -19,11 +18,18 @@ namespace Lab
         private PlayerMoveSystem _playerMoveSystem;
         private PlayerLookSystem _playerLookSystem;
 
-        public Player(PlayerModel model)
+        PlayerWeaponSystem _weaponSystem;
+        PlayerActivitySystem _activitySystem;
+
+        public Player(PlayerModel model, IPlayerInput playerInput)
         {
             _model = model;
-            _playerMoveSystem = new PlayerMoveSystem();
-            _playerLookSystem = new PlayerLookSystem();
+
+            _playerMoveSystem = new PlayerMoveSystem(playerInput);
+            _playerLookSystem = new PlayerLookSystem(playerInput);
+
+            _weaponSystem = new PlayerWeaponSystem();
+            _activitySystem = new PlayerActivitySystem(_weaponSystem);
         }
 
         public void Initialization()

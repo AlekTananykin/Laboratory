@@ -5,7 +5,10 @@
         public GameInitialization(
             Controllers controllers, GameData gameData)
         {
-            Player player = new Player(gameData.Player);
+            IPlayerInput playerInput = new PlayerPcInput();
+            controllers.Add(playerInput);
+
+            Player player = new Player(gameData.Player, playerInput);
             controllers.Add(player);
 
 

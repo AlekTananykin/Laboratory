@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab
 {
-    interface IInitialization: IController
+    public interface IInitialization: IController
     {
         void Initialization();
     }
