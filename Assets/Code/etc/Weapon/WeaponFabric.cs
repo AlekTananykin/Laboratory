@@ -1,9 +1,8 @@
-﻿using Assets.Code.Exceptions;
-using Assets.Code.Weapon;
+﻿using Assets.Code.Player;
 using System;
 using System.Collections.Generic;
 
-namespace Assets.Code.Player
+namespace Lab
 {
     sealed internal class WeaponFabric
     {

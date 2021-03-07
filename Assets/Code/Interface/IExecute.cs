@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab
 {
-    interface IExecute: IController
+    interface IExecute: IInteractionObject
     {
         void Execute(float deltaTime);
     }

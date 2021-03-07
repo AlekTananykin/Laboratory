@@ -8,6 +8,7 @@ namespace Lab
     {
         public GameObject _playerPrefab;
         public int _health;
+        
         public int _maxHealth;
         public float _speed;
         public float _jumpSpeed;

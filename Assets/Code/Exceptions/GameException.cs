@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Assets.Code.Exceptions
+namespace Lab
 {
     [Serializable]
     internal class GameException : Exception

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab
 {
-    sealed class Controllers : 
+    sealed class InteractiveStorage : 
         IInitialization, IExecute, ILateExecute, ICleanup
     {
         private List<IInitialization> _initializationControllers;
@@ -14,7 +14,7 @@ namespace Lab
         private List<ILateExecute> _lateExecuteControllers;
         private List<ICleanup> _cleanupControllers;
 
-        public Controllers()
+        public InteractiveStorage()
         {
             _initializationControllers = new List<IInitialization>();
             _executeControllers = new List<IExecute>();
@@ -22,7 +22,7 @@ namespace Lab
             _cleanupControllers = new List<ICleanup>();
         }
 
-        internal IController Add(IController controller)
+        internal void Add(IInteractionObject controller)
         {
             if (controller is IInitialization initController)
             {
@@ -40,7 +40,6 @@ namespace Lab
             {
                 _cleanupControllers.Add(cleanupController);
             }
-            return this;
         }
 
         public void Initialization()

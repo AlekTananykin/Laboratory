@@ -5,9 +5,14 @@ using UnityEngine.UI;
 
 public class InformationScreenView : MonoBehaviour
 {
-    [SerializeField] private Image _helthImage;
-    [SerializeField] private Text _helthCount;
+    private Image _helthImage;
+    private Text _helthCount;
 
+    public void Initialization()
+    {
+        _helthImage = GameObject.Find("HealthBant").GetComponent<Image>();
+        _helthCount = GameObject.Find("HelthCountText").GetComponent<Text>();
+    }
 
     public void Refresh(int helth, int maxHealth)
     {

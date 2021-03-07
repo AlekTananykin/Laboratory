@@ -105,8 +105,6 @@ namespace Lab
             //else
             //    _backpack.Add(name, count);
 
-            //PlayerActivityMessages?.Invoke(string.Format(
-            //    "You have picked up {0}. ", name));
             return true;
         }
     }

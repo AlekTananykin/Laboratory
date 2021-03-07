@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab
 {
-    public interface ICleanup: IController
+    public interface ICleanup: IInteractionObject
     {
         void Cleanup();
     }

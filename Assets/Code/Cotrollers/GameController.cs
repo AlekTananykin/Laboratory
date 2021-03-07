@@ -9,33 +9,33 @@ namespace Lab
         [SerializeField] private GameData _gameData;
 
 
-        Controllers _controllers;
+        InteractiveStorage _interactiveStorage;
 
         GameController()
         {
-            _controllers = new Controllers();
+            _interactiveStorage = new InteractiveStorage();
         }
 
         void Start()
         {
-            new GameInitialization(_controllers, _gameData);
+            new GameInitialization(_interactiveStorage, _gameData);
 
-            _controllers.Initialization();
+            _interactiveStorage.Initialization();
         }
 
         void Update()
         {
-            _controllers.Execute(Time.deltaTime);
+            _interactiveStorage.Execute(Time.deltaTime);
         }
 
         void LateUpdate()
         {
-           _controllers.LateExecute(Time.deltaTime);
+            _interactiveStorage.LateExecute(Time.deltaTime);
         }
 
         private void OnDestroy()
         {
-            _controllers.Cleanup();
+            _interactiveStorage.Cleanup();
         }
     }
 }

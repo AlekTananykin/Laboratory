@@ -1,18 +1,23 @@
-﻿namespace Lab
+﻿using UnityEngine;
+
+namespace Lab
 {
     internal class GameInitialization
     {
         public GameInitialization(
-            Controllers controllers, GameData gameData)
+            InteractiveStorage controllers, GameData gameData)
         {
+            GameObjectFabric fabric = new GameObjectFabric();
+
             IPlayerInput playerInput = new PlayerPcInput();
             controllers.Add(playerInput);
 
-            Player player = new Player(gameData.Player, playerInput);
-            controllers.Add(player);
+            var playerObject = fabric.GetPlayer();
+            PlayerView playerView = playerObject.GetComponent<PlayerView>();
 
-            var informationScreen = new InformationScreenController(gameData);
-            controllers.Add(informationScreen);
+            playerView.SetModelAndInput(gameData.Player, playerInput);
+            controllers.Add(playerView);
+
         }
     }
 }

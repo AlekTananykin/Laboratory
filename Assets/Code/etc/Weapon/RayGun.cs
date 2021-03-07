@@ -1,12 +1,11 @@
-﻿using Assets.Code.Player;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Assets.Code.Weapon
+namespace Lab
 {
     public sealed class RayGun : IWeapon
     {
