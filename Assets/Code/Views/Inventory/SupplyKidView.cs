@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Lab
 {
-    public class SupplyKid : UsefulItem
+    public class SupplyKidView : UsefulItem
     {
-        public SupplyKid()
+        public SupplyKidView()
             :base("SupplyKid", 6)
         {
         }

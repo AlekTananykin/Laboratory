@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1710930535711822094}
   - component: {fileID: 1710930535719565006}
   - component: {fileID: 1710930535712282705}
-  - component: {fileID: 1710930535712282710}
+  - component: {fileID: 6646900313955387279}
   m_Layer: 0
   m_Name: box_ammo
   m_TagString: Untagged
@@ -67,7 +67,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.3, z: 1}
   m_Center: {x: 0, y: 0.15, z: 0}
---- !u!114 &1710930535712282710
+--- !u!114 &6646900313955387279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

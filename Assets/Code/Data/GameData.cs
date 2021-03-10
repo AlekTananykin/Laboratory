@@ -11,6 +11,8 @@ namespace Lab
         [SerializeField] private string _playerModelPath;
         [SerializeField] private string _enemyDataPath;
         [SerializeField] private string _supplyDataPath;
+        [SerializeField] private string _ammoDataPath;
+        [SerializeField] private string _aidDataPath;
 
         private PlayerModel _player;
         public PlayerModel Player
@@ -25,16 +27,42 @@ namespace Lab
             }
         }
 
-        private SupplyModel _supplyModel;
-        public SupplyModel Supply
+        private SupplyModel _supplyBoxModel;
+        public SupplyModel SupplyBox
         {
             get 
             {
-                if (null == _supplyModel)
+                if (null == _supplyBoxModel)
                 {
-                    _supplyModel = Load<SupplyModel>("GameData/" + _supplyDataPath);
+                    _supplyBoxModel = Load<SupplyModel>("GameData/" + _supplyDataPath);
                 }
-                return _supplyModel;
+                return _supplyBoxModel;
+            }
+        }
+
+        private SupplyModel _ammoBoxModel;
+        public SupplyModel AmmoBox
+        {
+            get
+            {
+                if (null == _ammoBoxModel)
+                {
+                    _ammoBoxModel = Load<SupplyModel>("GameData/" + _ammoDataPath);
+                }
+                return _ammoBoxModel;
+            }
+        }
+
+        private SupplyModel _aidBoxModel;
+        public SupplyModel AidBoxModel
+        {
+            get
+            {
+                if (null == _aidBoxModel)
+                {
+                    _aidBoxModel = Load<SupplyModel>("GameData/" + _aidDataPath);
+                }
+                return _aidBoxModel;
             }
         }
 

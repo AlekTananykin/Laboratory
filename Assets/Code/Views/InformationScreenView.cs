@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InformationScreenView : MonoBehaviour
+public class InformationScreenView
 {
     private Image _helthImage;
     private Text _helthCount;
