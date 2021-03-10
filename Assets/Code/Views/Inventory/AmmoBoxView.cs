@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Lab
 {
-    public sealed class ArmorBoxView : UsefulItem
+    public sealed class AmmoBoxView : UsefulItem
     {
-        public ArmorBoxView()
+        public AmmoBoxView()
            : base("GunCartridges", 6)
         {
         }

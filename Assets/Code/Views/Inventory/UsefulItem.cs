@@ -2,12 +2,14 @@
 
 namespace Lab
 {
-    public abstract class UsefulItem : MonoBehaviour, IUsefulItem, IReactToHit
+    public abstract class UsefulItem : MonoBehaviour, IInitialization, IUsefulItem, IReactToHit
     {
         protected const int _isNotUtilized = -1;
 
         private readonly string _name;
         private readonly int _count;
+
+        private SupplyModel _model;
         public UsefulItem(string name, int count)
         {
             _name = name;
@@ -27,6 +29,16 @@ namespace Lab
                 return;
 
             Destroy(this.gameObject);
+        }
+
+        public void SetModel(SupplyModel model)
+        {
+            _model = model;
+        }
+
+        public void Initialization()
+        {
+            transform.position = _model._position;
         }
     }
 }

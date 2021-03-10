@@ -25,16 +25,35 @@ namespace Lab
         private GameObject _supplyBoxPrefab;
         public GameObject GetSupplyBox()
         {
-            if (null == _supplyBoxPrefab)
-            {
-                GameObject supplyBoxPrefab = (GameObject)Resources.Load(
-                    "Prefabs\\Boxes\\box_supply.prefab");
-                if (null == supplyBoxPrefab)
-                    throw new GameException();
-            }
-            return GameObject.Instantiate(_supplyBoxPrefab);
+            return CreateObjectFromFile(ref _supplyBoxPrefab, 
+                "Prefabs\\Boxes\\box_supply");
         }
 
+        private GameObject _ammoBoxPrefab;
+        public GameObject GetAmmoBox()
+        {
+            return CreateObjectFromFile(ref _ammoBoxPrefab, 
+                "Prefabs\\Boxes\\box_ammo");
+        }
+
+        private GameObject _aidKidBoxPrefab;
+        public GameObject GetAidKidBox()
+        {
+            return CreateObjectFromFile(ref _aidKidBoxPrefab,
+                "Prefabs\\Boxes\\box_med");
+        }
+
+        GameObject CreateObjectFromFile(ref GameObject prefab, string prefabPath)
+        {
+            if (null == prefab)
+            {
+                prefab = (GameObject)Resources.Load(prefabPath);
+                if (null == prefab)
+                    throw new GameException("CreateObjectFromFile: " +
+                        "Prefab can't be loaded from file \"" + prefabPath + "\"");
+            }
+            return GameObject.Instantiate(prefab);
+        }
 
     }
 }
