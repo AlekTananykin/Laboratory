@@ -22,6 +22,19 @@ namespace Lab
             return _player;
         }
 
+        private GameObject _supplyBoxPrefab;
+        public GameObject GetSupplyBox()
+        {
+            if (null == _supplyBoxPrefab)
+            {
+                GameObject supplyBoxPrefab = (GameObject)Resources.Load(
+                    "Prefabs\\Boxes\\box_supply.prefab");
+                if (null == supplyBoxPrefab)
+                    throw new GameException();
+            }
+            return GameObject.Instantiate(_supplyBoxPrefab);
+        }
+
 
     }
 }

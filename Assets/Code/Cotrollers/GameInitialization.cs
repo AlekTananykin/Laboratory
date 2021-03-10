@@ -18,6 +18,9 @@ namespace Lab
             playerView.SetModelAndInput(gameData.Player, playerInput);
             controllers.Add(playerView);
 
+            var supplyBox = fabric.GetSupplyBox();
+            
+            
         }
     }
 }

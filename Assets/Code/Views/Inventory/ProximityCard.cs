@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.Inventory
+namespace Lab
 {
     public class ProximityCard : UsefulItem
     {

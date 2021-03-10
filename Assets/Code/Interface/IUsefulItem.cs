@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.Player
+namespace Lab
 {
     interface IUsefulItem
     {

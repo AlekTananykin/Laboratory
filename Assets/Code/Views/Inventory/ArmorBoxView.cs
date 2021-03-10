@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Code.Inventory
+namespace Lab
 {
-    public class SupplyKid : UsefulItem
+    public class ArmorBoxScript : UsefulItem
     {
-        public SupplyKid()
-            :base("SupplyKid", 6)
+        public ArmorBoxScript()
+           : base("GunCartridges", 6)
         {
         }
     }

@@ -10,6 +10,7 @@ namespace Lab
     {
         [SerializeField] private string _playerModelPath;
         [SerializeField] private string _enemyDataPath;
+        [SerializeField] private string _supplyDataPath;
 
         private PlayerModel _player;
         public PlayerModel Player
@@ -24,8 +25,19 @@ namespace Lab
             }
         }
 
-        
-        public GameObject _informationScreen;
+        private SupplyModel _supplyModel;
+        public SupplyModel Supply
+        {
+            get 
+            {
+                if (null == _supplyModel)
+                {
+                    _supplyModel = Load<SupplyModel>("GameData/" + _supplyDataPath);
+                }
+                return _supplyModel;
+            }
+        }
+
 
         private T Load<T>(string resourcePath) where T: Object =>
             Resources.Load<T>(Path.ChangeExtension(resourcePath, null));

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DangerouseItems
 {
-    public class GrenadeScript : Bomb, IReactToHit
+    public class GrenadeScript : Bomb, Lab.IReactToHit
     {
         private float _explosionDelay = 3f;
         
