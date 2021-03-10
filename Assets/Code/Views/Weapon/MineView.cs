@@ -6,7 +6,7 @@ using Lab;
 
 namespace DangerouseItems
 {
-    public class MineScript : Bomb, IDevice, IReactToHit
+    public class MineView : Bomb, IDevice, IReactToHit
     {
         private const string _termsOfUse = "SupplyKid";
         private const float _hitRadius = 5f;
@@ -34,8 +34,6 @@ namespace DangerouseItems
             Explosion(_hitRadius, _explosionForce, _collider);
             return "Mine has been explosed. ";
         }
-
-       
 
         public void ReactToHit(int hitCount)
         {

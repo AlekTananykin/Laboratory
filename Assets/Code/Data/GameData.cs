@@ -13,6 +13,7 @@ namespace Lab
         [SerializeField] private string _supplyDataPath;
         [SerializeField] private string _ammoDataPath;
         [SerializeField] private string _aidDataPath;
+        [SerializeField] private string _bombDataPath;
 
         private PlayerModel _player;
         public PlayerModel Player
@@ -63,6 +64,19 @@ namespace Lab
                     _aidBoxModel = Load<SupplyModel>("GameData/" + _aidDataPath);
                 }
                 return _aidBoxModel;
+            }
+        }
+
+        private BombData _bombData;
+        public BombData BombData
+        {
+            get 
+            {
+                if (null == _bombData)
+                {
+                    _bombData = Load<BombData>("GameData/" + _bombDataPath);
+                }
+                return _bombData;
             }
         }
 

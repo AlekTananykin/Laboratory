@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+using DangerouseItems;
 namespace Lab
 {
     internal class GameInitialization
@@ -14,6 +14,16 @@ namespace Lab
             InitializeBoxSupply(interactiveStorage, gameData, fabric);
             InitializeBoxAmmo(interactiveStorage, gameData, fabric);
             InitializeBoxAidKid(interactiveStorage, gameData, fabric);
+            InitializeMine(interactiveStorage, gameData, fabric);
+        }
+
+        private void InitializeMine(InteractiveStorage interactiveStorage, 
+            GameData gameData, GameObjectFabric fabric)
+        {
+            GameObject mine = fabric.GetMine();
+            MineView mineView = mine.GetComponent<MineView>();
+            mineView.SetModel(gameData.BombData);
+            interactiveStorage.Add(mineView);
         }
 
         private void InitializeBoxSupply(InteractiveStorage interactiveStorage, 
@@ -55,7 +65,6 @@ namespace Lab
             playerView.SetModelAndInput(gameData.Player, playerInput);
             interactiveStorage.Add(playerView);
         }
-
 
     }
 }

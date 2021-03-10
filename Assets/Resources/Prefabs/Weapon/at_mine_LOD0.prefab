@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9151539739933393269}
   - component: {fileID: 9151539739932234487}
   - component: {fileID: 9151539739934563343}
-  - component: {fileID: 9151539739934563340}
+  - component: {fileID: -7099804948253110736}
   m_Layer: 0
   m_Name: at_mine_LOD0
   m_TagString: Player
@@ -97,7 +97,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.25, z: 0.2}
   m_Center: {x: 0, y: 0.1, z: 0}
---- !u!114 &9151539739934563340
+--- !u!114 &-7099804948253110736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

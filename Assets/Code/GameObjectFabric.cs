@@ -9,6 +9,14 @@ namespace Lab
 {
     public sealed class GameObjectFabric
     {
+        private GameObject _mine;
+        internal GameObject GetMine()
+        {
+            return CreateObjectFromFile(ref _mine,
+                "Prefabs\\Weapon\\at_mine_LOD0");
+        }
+
+
         GameObject _player;
         public GameObject GetPlayer()
         {
