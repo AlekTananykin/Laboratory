@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.Player
+﻿namespace Lab
 {
     public interface IWeaponContainer
     {

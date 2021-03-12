@@ -7,6 +7,6 @@
         void DiscardWeapon(string name);
 
         void DiscardCartridges(string name);
-        //void AddWeapon(IWeaponContainer weaponContainer);
+        void AddWeapon(IWeaponContainer weaponContainer);
     }
 }

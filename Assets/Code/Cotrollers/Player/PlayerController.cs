@@ -15,24 +15,36 @@ namespace Lab
         private PlayerWeaponSystem _weaponSystem;
         private PlayerActivitySystem _activitySystem;
 
+        ICameraRay _cameraRay;
+        IPlayerInput _playerInput;
+
         public PlayerController(ICameraRay cameraRay, IPlayerInput playerInput)
         {
-            _playerMoveSystem = new PlayerMoveSystem(playerInput);
-            _playerLookSystem = new PlayerLookSystem(playerInput);
+            _playerMoveSystem = new PlayerMoveSystem();
+            _playerLookSystem = new PlayerLookSystem();
 
             _weaponSystem = new PlayerWeaponSystem();
             _activitySystem = new PlayerActivitySystem(_weaponSystem);
+
+            _cameraRay = cameraRay;
+            _playerInput = playerInput;
         }
 
         public (float rotationX, float deltaRotationY) Look()
         {
-            _playerLookSystem.Look(out float rotationX, out float deltaRotationY);
-            return (rotationX, deltaRotationY);
+            return _playerLookSystem.Look(_playerInput);
         }
 
         public Vector3 Move(bool isGrounded, float speed, float jumpSpeed)
         {
-            return _playerMoveSystem.Move(isGrounded, speed, jumpSpeed);
+            return _playerMoveSystem.Move(
+                isGrounded, speed, jumpSpeed, _playerInput);
+        }
+
+        public void Use(Transform transform)
+        {
+            if (_playerInput.UseDevice)
+                _activitySystem.Use(_cameraRay, transform);
         }
     }
 }

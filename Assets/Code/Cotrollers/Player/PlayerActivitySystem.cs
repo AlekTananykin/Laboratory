@@ -6,7 +6,6 @@ namespace Lab
     internal class PlayerActivitySystem
     {
         public delegate void ActivityMessages(string msg);
-        public event ActivityMessages PlayerActivityMessages;
 
         Dictionary<string, int> _backpack;
         IWeaponStorage _weaponStorage;
@@ -15,12 +14,15 @@ namespace Lab
         {
             _backpack = new Dictionary<string, int>();
             _weaponStorage = weaponStorage;
+
         }
 
-        public void Use(Ray ray, Transform playerTransform)
+        public void Use(ICameraRay cameraRay, Transform playerTransform)
         {
+           
             const float maxDistance = 3f;
-            if (!Physics.Raycast(ray, out RaycastHit hit, maxDistance))
+            if (!Physics.Raycast(cameraRay.GetCameraRay(), 
+                out RaycastHit hit, maxDistance))
                 return;
 
             if (!IsAppropriatePosition(hit, playerTransform))
@@ -39,27 +41,15 @@ namespace Lab
 
         private bool TryPickUpWeaponItem(GameObject item)
         {
-            //if (!item.TryGetComponent(out IWeaponContainer weaponContainer))
-            //    return false;
+            if (!item.TryGetComponent(out IWeaponContainer weaponContainer))
+                return false;
 
-            //_weaponStorage.AddWeapon(weaponContainer);
+            _weaponStorage.AddWeapon(weaponContainer);
 
-            //if (null != PlayerActivityMessages)
-            //{
-            //    string message;
-            //    if (weaponContainer.IsWeapon)
-            //        message = string.Format(
-            //            "You have picked up {0}. ", weaponContainer.Name);
-            //    else
-            //        message = string.Format(
-            //            "You have picked up bullets for {0}. ", weaponContainer.Name);
-
-            //    PlayerActivityMessages.Invoke(message);
-            //}
             return true;
         }
 
-        bool IsAppropriatePosition(RaycastHit hit, Transform playerTransform)
+        private bool IsAppropriatePosition(RaycastHit hit, Transform playerTransform)
         {
             if (Mathf.Abs(Vector3.Dot(hit.transform.forward.normalized,
                     playerTransform.forward.normalized)) > 0.5)
@@ -68,7 +58,7 @@ namespace Lab
             return false;
         }
 
-        bool TryOperateDevice(GameObject item)
+        private bool TryOperateDevice(GameObject item)
         {
             if (!item.TryGetComponent(out IDevice deviceController))
                 return false;
@@ -89,21 +79,19 @@ namespace Lab
             else
                 operationMessage = deviceController.Operate(string.Empty);
 
-            PlayerActivityMessages?.Invoke(operationMessage);
-
             return true;
         }
 
-        bool TryPickUpUsefulItem(GameObject item)
+        private bool TryPickUpUsefulItem(GameObject item)
         {
-            //if (!item.TryGetComponent(out IUsefulItem usefulItem))
-            //    return false;
+            if (!item.TryGetComponent(out IUsefulItem usefulItem))
+                return false;
 
-            //usefulItem.PickUpItem(out string name, out int count);
-            //if (_backpack.ContainsKey(name))
-            //    _backpack[name] += count;
-            //else
-            //    _backpack.Add(name, count);
+            usefulItem.PickUpItem(out string name, out int count);
+            if (_backpack.ContainsKey(name))
+                _backpack[name] += count;
+            else
+                _backpack.Add(name, count);
 
             return true;
         }

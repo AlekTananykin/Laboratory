@@ -2,7 +2,8 @@
 
 namespace Lab
 {
-    public abstract class UsefulItem : MonoBehaviour, IInitialization, IUsefulItem, IReactToHit
+    public abstract class UsefulItem : MonoBehaviour, 
+        IInitialization, IUsefulItem, IReactToHit
     {
         protected const int _isNotUtilized = -1;
 

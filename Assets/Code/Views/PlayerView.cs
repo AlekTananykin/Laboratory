@@ -63,6 +63,8 @@ namespace Lab
                 _charecterController.isGrounded, _model._speed, _model._jumpSpeed);
             
             _charecterController.Move(transform.TransformDirection(movement));
+
+            _playerController.Use(transform);
         }
 
         public void LateExecute(float deltaTime)

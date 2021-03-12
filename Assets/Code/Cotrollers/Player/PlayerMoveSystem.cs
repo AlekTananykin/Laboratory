@@ -12,34 +12,33 @@ namespace Lab
 
         private float _vertSpeed = 0;
 
-        private IPlayerInput _playerMoveInput;
-
-        public PlayerMoveSystem(IPlayerInput playerInput)
+        public PlayerMoveSystem()
         {
-            _playerMoveInput = playerInput;
             _vertSpeed = 0;
         }
 
-        public Vector3 Move(bool isGrounded, float speed, float jumpSpeed)
+        public Vector3 Move(bool isGrounded, float speed, 
+            float jumpSpeed, IPlayerInput playerInput)
         {
-            float deltaX = _playerMoveInput.HorizontalMove * speed;
-            float deltaZ = _playerMoveInput.VerticalMove * speed;
+            float deltaX = playerInput.HorizontalMove * speed;
+            float deltaZ = playerInput.VerticalMove * speed;
             Vector3 movement = new Vector3(deltaX, 0, deltaZ);
             movement = Vector3.ClampMagnitude(movement, speed);
             movement *= Time.deltaTime;
 
-            movement = ProcessVerticalMove(movement, jumpSpeed, isGrounded);
+            movement = ProcessVerticalMove(
+                movement, jumpSpeed, isGrounded, playerInput);
 
             return movement;
 
         }
 
         private Vector3 ProcessVerticalMove(Vector3 movement, 
-            float jumpSpeed, bool isGrounded)
+            float jumpSpeed, bool isGrounded, IPlayerInput playerInput)
         {
             if (isGrounded)
             {
-                if (_playerMoveInput.IsJump)
+                if (playerInput.IsJump)
                     _vertSpeed = jumpSpeed;
                 else
                     _vertSpeed = 0;
@@ -47,7 +46,8 @@ namespace Lab
             else
                 _vertSpeed += _gravity * Time.deltaTime;
 
-            return new Vector3(movement.x, _vertSpeed * Time.deltaTime, movement.z);
+            return new Vector3(movement.x, 
+                _vertSpeed * Time.deltaTime, movement.z);
         }
     }
 }

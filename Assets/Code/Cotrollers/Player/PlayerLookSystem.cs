@@ -14,19 +14,11 @@ namespace Lab
         public float _maxVert = 45.0f;
         public float _rotationX = 0;
 
-        IPlayerInput _playerLookInput;
-
-        public PlayerLookSystem(IPlayerInput plauerInput)
+        public (float rotationX, float deltaRotationY) Look(IPlayerInput plauerInput)
         {
-            _playerLookInput = plauerInput;
-        }
-
-        public void Look(out float rotationX, out float deltaRotationY)
-        {
-            _rotationX -= _playerLookInput.MoveY * _sensVert;
+            _rotationX -= plauerInput.MoveY * _sensVert;
             _rotationX = Mathf.Clamp(_rotationX, _minVert, _maxVert);
-            rotationX = _rotationX;
-            deltaRotationY = _playerLookInput.MoveX * _sensHor;
+            return (_rotationX, plauerInput.MoveX * _sensHor);
         }
     }
 }
