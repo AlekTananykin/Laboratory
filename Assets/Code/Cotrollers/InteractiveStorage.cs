@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Lab
 {
     sealed class InteractiveStorage : 
-        IInitialization, IExecute, ILateExecute, ICleanup
+        IInitialization, IExecute, ILateExecute, ICleanup, IInteractionStorage
     {
         private List<IInitialization> _initializationControllers;
         private List<IExecute> _executeControllers;
@@ -22,7 +22,7 @@ namespace Lab
             _cleanupControllers = new List<ICleanup>();
         }
 
-        internal void Add(IInteractionObject controller)
+        public void Add(IInteractionObject controller)
         {
             if (controller is IInitialization initController)
             {
@@ -39,6 +39,27 @@ namespace Lab
             if (controller is ICleanup cleanupController)
             {
                 _cleanupControllers.Add(cleanupController);
+            }
+        }
+
+        public void Remove(IInteractionObject controller)
+        {
+            if (controller is IInitialization initController)
+            {
+                _initializationControllers.Remove(initController);
+            }
+            if (controller is IExecute execController)
+            {
+                _executeControllers.Remove(execController);
+            }
+            if (controller is ILateExecute lateExecController)
+            {
+                _lateExecuteControllers.Remove(lateExecController);
+            }
+            if (controller is ICleanup cleanupController)
+            {
+                _cleanupControllers.Remove(cleanupController);
+                cleanupController.Cleanup();
             }
         }
 

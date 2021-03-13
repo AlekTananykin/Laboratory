@@ -8,7 +8,7 @@ namespace Lab
     {
         [SerializeField] private GameData _gameData;
 
-
+        
         InteractiveStorage _interactiveStorage;
 
         GameController()
@@ -33,7 +33,7 @@ namespace Lab
             _interactiveStorage.LateExecute(Time.deltaTime);
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             _interactiveStorage.Cleanup();
         }

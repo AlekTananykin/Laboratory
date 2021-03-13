@@ -5,17 +5,11 @@ using Lab;
 
 namespace DangerouseItems
 {
-    public abstract class Bomb : MonoBehaviour, IInitialization
+    public abstract class Bomb : ViewHandle<BombData>, IInitialization
     {
-        BombData _model;
         public void Initialization()
         {
             transform.position = _model._position;
-        }
-
-        public void SetModel(BombData model)
-        {
-            _model = model;
         }
 
         protected void Explosion(float hitRadius, float explosionForce, Collider bombCollider)

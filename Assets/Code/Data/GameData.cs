@@ -13,6 +13,7 @@ namespace Lab
         [SerializeField] private string _supplyDataPath;
         [SerializeField] private string _ammoDataPath;
         [SerializeField] private string _aidDataPath;
+        [SerializeField] private string _proximityCardDataPath;
         [SerializeField] private string _bombDataPath;
 
         private PlayerModel _player;
@@ -22,7 +23,8 @@ namespace Lab
             {
                 if (null == _player)
                 {
-                    _player = Load<PlayerModel>("GameData/" + _playerModelPath);
+                    _player = Load<PlayerModel>(
+                        "GameData/" + _playerModelPath);
                 }
                 return _player;
             }
@@ -35,7 +37,8 @@ namespace Lab
             {
                 if (null == _supplyBoxModel)
                 {
-                    _supplyBoxModel = Load<SupplyModel>("GameData/" + _supplyDataPath);
+                    _supplyBoxModel = Load<SupplyModel>(
+                        "GameData/" + _supplyDataPath);
                 }
                 return _supplyBoxModel;
             }
@@ -48,7 +51,8 @@ namespace Lab
             {
                 if (null == _ammoBoxModel)
                 {
-                    _ammoBoxModel = Load<SupplyModel>("GameData/" + _ammoDataPath);
+                    _ammoBoxModel = Load<SupplyModel>(
+                        "GameData/" + _ammoDataPath);
                 }
                 return _ammoBoxModel;
             }
@@ -61,16 +65,31 @@ namespace Lab
             {
                 if (null == _aidBoxModel)
                 {
-                    _aidBoxModel = Load<SupplyModel>("GameData/" + _aidDataPath);
+                    _aidBoxModel = Load<SupplyModel>(
+                        "GameData/" + _aidDataPath);
                 }
                 return _aidBoxModel;
+            }
+        }
+
+        private SupplyModel _proximityCardModel;
+        public SupplyModel ProximityCartModel
+        {
+            get
+            {
+                if (null == _proximityCardModel)
+                {
+                    _proximityCardModel = Load<SupplyModel>(
+                        "GameData/" + _proximityCardDataPath);
+                }
+                return _proximityCardModel;
             }
         }
 
         private BombData _bombData;
         public BombData BombData
         {
-            get 
+            get
             {
                 if (null == _bombData)
                 {

@@ -7,7 +7,6 @@ namespace Lab
 {
     public class SupplyKidView : UsefulItem
     {
-        private SupplyModel _model;
         public SupplyKidView()
             :base("SupplyKid", 6)
         {

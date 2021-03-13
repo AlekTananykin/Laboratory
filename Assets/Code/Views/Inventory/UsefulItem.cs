@@ -2,7 +2,7 @@
 
 namespace Lab
 {
-    public abstract class UsefulItem : MonoBehaviour, 
+    public abstract class UsefulItem : ViewHandle<SupplyModel>, 
         IInitialization, IUsefulItem, IReactToHit
     {
         protected const int _isNotUtilized = -1;
@@ -10,7 +10,7 @@ namespace Lab
         private readonly string _name;
         private readonly int _count;
 
-        private SupplyModel _model;
+
         public UsefulItem(string name, int count)
         {
             _name = name;
@@ -29,12 +29,8 @@ namespace Lab
             if (hitCount <= 1)
                 return;
 
+            OnDestroy();
             Destroy(this.gameObject);
-        }
-
-        public void SetModel(SupplyModel model)
-        {
-            _model = model;
         }
 
         public void Initialization()

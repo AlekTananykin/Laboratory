@@ -17,4 +17,5 @@ MonoBehaviour:
   _supplyDataPath: SupplyBox.asset
   _ammoDataPath: AmmoBox.asset
   _aidDataPath: AidBox.asset
+  _proximityCardDataPath: ProximityCard
   _bombDataPath: Mine.asset

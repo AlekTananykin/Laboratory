@@ -37,6 +37,13 @@ namespace Lab
                 "Prefabs\\Boxes\\box_supply");
         }
 
+        private GameObject _proximityCardPrefab;
+        internal GameObject GetProximityCard()
+        {
+            return CreateObjectFromFile(ref _proximityCardPrefab,
+                "Prefabs\\ProximityCard");
+        }
+
         private GameObject _ammoBoxPrefab;
         public GameObject GetAmmoBox()
         {

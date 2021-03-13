@@ -14,43 +14,55 @@ namespace Lab
             InitializeBoxSupply(interactiveStorage, gameData, fabric);
             InitializeBoxAmmo(interactiveStorage, gameData, fabric);
             InitializeBoxAidKid(interactiveStorage, gameData, fabric);
+            InitializeProximityCard(interactiveStorage, gameData, fabric);
             InitializeMine(interactiveStorage, gameData, fabric);
+        }
+
+        private void InitializeProximityCard(
+            InteractiveStorage interactiveStorage, 
+            GameData gameData, GameObjectFabric fabric)
+        {
+            LinkCopmponents<ProximityCard, SupplyModel>(
+                fabric.GetProximityCard(), 
+                gameData.ProximityCartModel, interactiveStorage);
         }
 
         private void InitializeMine(InteractiveStorage interactiveStorage, 
             GameData gameData, GameObjectFabric fabric)
         {
-            GameObject mine = fabric.GetMine();
-            MineView mineView = mine.GetComponent<MineView>();
-            mineView.SetModel(gameData.BombData);
-            interactiveStorage.Add(mineView);
+            LinkCopmponents<MineView, BombData>(
+                fabric.GetMine(), gameData.BombData, interactiveStorage);
         }
 
         private void InitializeBoxSupply(InteractiveStorage interactiveStorage, 
             GameData gameData, GameObjectFabric fabric)
         {
-            GameObject supply = fabric.GetSupplyBox();
-            SupplyKidView supplyView = supply.GetComponent<SupplyKidView>();
-            supplyView.SetModel(gameData.SupplyBox);
-            interactiveStorage.Add(supplyView);
+            LinkCopmponents<SupplyKidView, SupplyModel>(
+                fabric.GetSupplyBox(), gameData.SupplyBox, interactiveStorage);
         }
 
         private void InitializeBoxAmmo(InteractiveStorage interactiveStorage,
            GameData gameData, GameObjectFabric fabric)
         {
-            GameObject ammo = fabric.GetAmmoBox();
-            AmmoBoxView ammoView = ammo.GetComponent<AmmoBoxView>();
-            ammoView.SetModel(gameData.AmmoBox);
-            interactiveStorage.Add(ammoView);
+            LinkCopmponents<AmmoBoxView, SupplyModel>(
+                fabric.GetAmmoBox(), gameData.AmmoBox, interactiveStorage);
         }
 
         private void InitializeBoxAidKid(InteractiveStorage interactiveStorage,
            GameData gameData, GameObjectFabric fabric)
         {
-            GameObject aidKid = fabric.GetAidKidBox();
-            FirstAidKidView aidKidView = aidKid.GetComponent<FirstAidKidView>();
-            aidKidView.SetModel(gameData.AidBoxModel);
-            interactiveStorage.Add(aidKidView);
+            LinkCopmponents<FirstAidKidView, SupplyModel>(
+                fabric.GetAidKidBox(), gameData.AidBoxModel, interactiveStorage);
+        }
+
+        private void LinkCopmponents<V, M>(
+            GameObject go, M model, IInteractionStorage storage)
+            where V: ViewHandle<M> 
+            where M: ScriptableObject
+        {
+            V viewHandle = go.GetComponent<V>();
+            viewHandle.SetSettings(model, storage);
+            storage.Add(viewHandle);
         }
 
         void InitializePlayer(InteractiveStorage interactiveStorage, 
@@ -65,6 +77,5 @@ namespace Lab
             playerView.SetModelAndInput(gameData.Player, playerInput);
             interactiveStorage.Add(playerView);
         }
-
     }
 }
