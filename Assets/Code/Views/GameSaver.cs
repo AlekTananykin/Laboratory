@@ -11,23 +11,29 @@ namespace Lab
     public sealed class GameSaver: IExecute
     {
         IPlayerInput _playerInput;
-        GameData _gameData;
+        GameModel _gameModel;
+        SaveDataRepository<GameModel> _saveRepository;
 
-        public GameSaver(IPlayerInput playerInput, GameData gameData)
+        public GameSaver(IPlayerInput playerInput, GameModel gameModel)
         {
             _playerInput = playerInput;
-            _gameData = gameData;
+            _gameModel = gameModel;
+            _saveRepository = new SaveDataRepository<GameModel>();
         }
 
         public void Execute(float deltaTime)
         {
-            if (!_playerInput.IsSaveGame)
-                return;
+            if (_playerInput.IsSaveGame)
+            {
+                _saveRepository.Save(_gameModel);
 
-            var s = new SaveDataRepository<GameData>();
-            s.Save(_gameData);
-
-            Debug.Log("Game is saved. ");
+                Debug.Log("Game is saved. ");
+            }
+            else if (_playerInput.IsLoadLastSavedGame)
+            {
+                _saveRepository.Load(ref _gameModel);
+                Debug.Log("Game is reloaded. ");
+            }
         }
     }
 }

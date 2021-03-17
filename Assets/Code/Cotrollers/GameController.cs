@@ -7,9 +7,10 @@ namespace Lab
     public sealed class GameController : MonoBehaviour
     {
         [SerializeField] private GameData _gameData;
+        private GameModel _gameModel;
 
-        
         InteractiveStorage _interactiveStorage;
+        IPlayerInput _playerInput;
 
         GameController()
         {
@@ -20,7 +21,11 @@ namespace Lab
         {
             try
             {
-                new GameInitialization(_interactiveStorage, _gameData);
+                _gameModel = _gameData.CreateGameModel();
+                _playerInput = new PlayerPcInput();
+                
+                new GameInitialization(
+                    _interactiveStorage, _gameModel, _playerInput);
 
                 _interactiveStorage.Initialization();
             }

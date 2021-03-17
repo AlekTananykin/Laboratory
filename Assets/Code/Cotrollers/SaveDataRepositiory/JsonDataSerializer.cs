@@ -28,8 +28,8 @@ namespace Assets.Code.Cotrollers.SaveDataRepositiory
                 throw new GameException(
                     "JsonDataSaver.Save: Path to save is not correct. ");
 
-            //string str = JsonUtility.ToJson(data, true);
-            //File.WriteAllText(path, str);
+            string str = JsonUtility.ToJson(data, true);
+            File.WriteAllText(path, str);
             
         }
     }

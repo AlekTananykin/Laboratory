@@ -19,8 +19,8 @@ namespace Assets.Code.Cotrollers.SaveDataRepositiory
 
         public SaveDataRepository()
         {
-            _dataSaver = new JsonDataSerializer<T>();
-            //_dataSaver = new XmlDataSerializer<T>();
+            //_dataSaver = new JsonDataSerializer<T>();
+            _dataSaver = new XmlDataSerializer<T>();
 
             _path = Path.Combine(
                 Directory.GetCurrentDirectory(), _folderName);
@@ -32,14 +32,15 @@ namespace Assets.Code.Cotrollers.SaveDataRepositiory
                 Directory.CreateDirectory(_path);
 
             _dataSaver.Save(data, Path.Combine(_path, _fileName));
+            
         }
 
         public void Load(ref T data)
         {
-            if (!File.Exists(_path))
+            if (!Directory.Exists(_path))
                 return;
-
-            _dataSaver.Load(ref data, Path.Combine(_path, _fileName));
+            T gd = default(T);
+            _dataSaver.Load(ref gd, Path.Combine(_path, _fileName));
         }
     }
 }

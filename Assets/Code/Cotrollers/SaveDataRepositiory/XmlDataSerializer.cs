@@ -1,12 +1,8 @@
 ﻿using Assets.Code.Interface;
 using Lab;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
+using UnityEngine;
 
 namespace Assets.Code.Cotrollers.SaveDataRepositiory
 {
@@ -16,7 +12,7 @@ namespace Assets.Code.Cotrollers.SaveDataRepositiory
 
         public XmlDataSerializer()
         {
-            _serializer = new XmlSerializer(typeof(T));
+            _serializer = new XmlSerializer(typeof(GameModel));
         }
         public void Load(ref T data, string path = null)
         {
@@ -41,7 +37,7 @@ namespace Assets.Code.Cotrollers.SaveDataRepositiory
 
 
             using (FileStream stream = new FileStream(
-                path, FileMode.OpenOrCreate, FileAccess.Write))
+                path, FileMode.Create, FileAccess.Write))
             {
                 _serializer.Serialize(stream, data);
             }

@@ -5,7 +5,7 @@ using Lab;
 
 namespace DangerouseItems
 {
-    public abstract class Bomb : ViewHandle<BombData>, IInitialization
+    public abstract class Bomb : ViewHandle<BombModel>, IInitialization
     {
         public void Initialization()
         {

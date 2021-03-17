@@ -9,7 +9,7 @@ namespace Lab
 {
     [CreateAssetMenu(fileName ="Supply",
         menuName= "GameData/Models/Supply")]
-    public sealed class SupplyModel: ScriptableObject
+    public sealed class SupplyData: ScriptableObject
     {
         public Vector3 _position;
     }

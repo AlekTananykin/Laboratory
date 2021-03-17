@@ -63,7 +63,7 @@ namespace Lab
                 _charecterController.isGrounded, _model._speed, _model._jumpSpeed);
             
             _charecterController.Move(transform.TransformDirection(movement));
-
+            _model._position = transform.position;
             _playerController.Use(transform);
         }
 

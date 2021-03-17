@@ -7,10 +7,8 @@ using UnityEngine;
 
 namespace Lab
 {
-    [CreateAssetMenu(fileName ="Bomb", menuName = "GameData/Bombs")]
-    public sealed class BombData: ScriptableObject
+    public sealed class BombModel
     {
-
         public Vector3 _position;
     }
 }

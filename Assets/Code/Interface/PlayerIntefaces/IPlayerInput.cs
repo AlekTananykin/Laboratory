@@ -23,5 +23,7 @@ namespace Lab
 
         bool IsSaveGame { get; }
 
+        bool IsLoadLastSavedGame { get; }
+
     }
 }
