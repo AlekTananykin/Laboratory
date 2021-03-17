@@ -11,7 +11,7 @@ namespace Lab
         IExecute, IInitialization, ILateExecute, ICameraRay, IReactToHit
     {
         private PlayerModel _model;
-        PlayerController _playerController;
+        private PlayerController _playerController;
 
         private CharacterController _charecterController;
         private IPlayerInput _playerInput;

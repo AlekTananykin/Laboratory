@@ -8,14 +8,27 @@ namespace Lab
         public GameInitialization(
             InteractiveStorage interactiveStorage, GameData gameData)
         {
-            GameObjectFabric fabric = new GameObjectFabric();
+            IPlayerInput playerInput = new PlayerPcInput();
+            interactiveStorage.Add(playerInput);
 
-            InitializePlayer(interactiveStorage, gameData, fabric);
+            InitializeGameSaver(
+                interactiveStorage, gameData, playerInput);
+
+            GameObjectFabric fabric = new GameObjectFabric();
+            InitializePlayer(
+                interactiveStorage, gameData, fabric, playerInput);
             InitializeBoxSupply(interactiveStorage, gameData, fabric);
             InitializeBoxAmmo(interactiveStorage, gameData, fabric);
             InitializeBoxAidKid(interactiveStorage, gameData, fabric);
             InitializeProximityCard(interactiveStorage, gameData, fabric);
             InitializeMine(interactiveStorage, gameData, fabric);
+        }
+
+        private void InitializeGameSaver(InteractiveStorage interactiveStorage, 
+            GameData gameData, IPlayerInput playerInput)
+        {
+            GameSaver gameSaver = new GameSaver(playerInput, gameData);
+            interactiveStorage.Add(gameSaver);
         }
 
         private void InitializeProximityCard(
@@ -66,11 +79,8 @@ namespace Lab
         }
 
         void InitializePlayer(InteractiveStorage interactiveStorage, 
-            GameData gameData, GameObjectFabric fabric)
+            GameData gameData, GameObjectFabric fabric, IPlayerInput playerInput)
         {
-            IPlayerInput playerInput = new PlayerPcInput();
-            interactiveStorage.Add(playerInput);
-
             var playerObject = fabric.GetPlayer();
             PlayerView playerView = playerObject.GetComponent<PlayerView>();
 

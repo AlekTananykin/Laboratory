@@ -16,7 +16,8 @@ namespace Lab
 
         public void Apply(Ray ray)
         {
-            var myLoadedAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, "myassetBundle"));
+            var myLoadedAssetBundle = AssetBundle.LoadFromFile(
+                Path.Combine(Application.streamingAssetsPath, "myassetBundle"));
             if (myLoadedAssetBundle == null)
             {
                 Debug.Log("Failed to load AssetBundle!");

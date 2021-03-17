@@ -18,19 +18,40 @@ namespace Lab
 
         void Start()
         {
-            new GameInitialization(_interactiveStorage, _gameData);
+            try
+            {
+                new GameInitialization(_interactiveStorage, _gameData);
 
-            _interactiveStorage.Initialization();
+                _interactiveStorage.Initialization();
+            }
+            catch (GameException ge)
+            {
+                Debug.Log(ge.Data);
+            }
         }
 
         void Update()
         {
-            _interactiveStorage.Execute(Time.deltaTime);
+            try
+            {
+                _interactiveStorage.Execute(Time.deltaTime);
+            }
+            catch (GameException ge)
+            {
+                Debug.LogError(ge.Data);
+            }
         }
 
         void LateUpdate()
         {
-            _interactiveStorage.LateExecute(Time.deltaTime);
+            try
+            {
+                _interactiveStorage.LateExecute(Time.deltaTime);
+            }
+            catch (GameException ge)
+            {
+                Debug.LogError(ge.Data);
+            }
         }
 
         void OnDestroy()

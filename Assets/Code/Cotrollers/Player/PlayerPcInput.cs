@@ -13,7 +13,6 @@ namespace Lab
 
         public float MoveY => Input.GetAxis("Mouse Y");
 
-
         public bool UseWeapon => Input.GetMouseButtonDown(0);
 
         public bool UseDevice => Input.GetMouseButtonDown(1);
@@ -25,6 +24,8 @@ namespace Lab
         public float VerticalMove => Input.GetAxis("Vertical");
 
         public bool IsJump => Input.GetButton("Jump");
+
+        public bool IsSaveGame => Input.GetKeyDown(KeyCode.F4);
 
         public void Initialization()
         {
