@@ -94,5 +94,13 @@ namespace Lab
                 _cleanupControllers[i].Cleanup();
             }
         }
+
+        public void Clear()
+        {
+            _initializationControllers.Clear();
+            _executeControllers.Clear();
+            _lateExecuteControllers.Clear();
+            _cleanupControllers.Clear();
+        }
     }
 }

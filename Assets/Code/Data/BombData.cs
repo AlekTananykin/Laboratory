@@ -10,7 +10,6 @@ namespace Lab
     [CreateAssetMenu(fileName ="Bomb", menuName = "GameData/Bombs")]
     public sealed class BombData: ScriptableObject
     {
-
         public Vector3 _position;
     }
 }

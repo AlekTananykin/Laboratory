@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <GameModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Player>
-    <_health>69</_health>
+    <_health>100</_health>
     <_maxHealth>100</_maxHealth>
     <_speed>12</_speed>
     <_jumpSpeed>4</_jumpSpeed>
     <_position>
-      <x>580.562134</x>
-      <y>20.1929531</y>
-      <z>338.8589</z>
+      <x>553.573669</x>
+      <y>20.0463371</y>
+      <z>350.95462</z>
     </_position>
   </Player>
   <SupplyBox>

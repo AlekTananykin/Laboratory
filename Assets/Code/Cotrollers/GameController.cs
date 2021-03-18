@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Code.Cotrollers.SaveDataRepositiory;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,9 +14,12 @@ namespace Lab
         InteractiveStorage _interactiveStorage;
         IPlayerInput _playerInput;
 
-        GameController()
+        SaveDataRepository<GameModel> _saveRepository;
+
+        public GameController()
         {
             _interactiveStorage = new InteractiveStorage();
+            _saveRepository = new SaveDataRepository<GameModel>();
         }
 
         void Start()
@@ -39,12 +44,35 @@ namespace Lab
         {
             try
             {
+                if (_playerInput.IsSaveGame)
+                {
+                    _saveRepository.Save(_gameModel);
+                    Debug.Log("Game is saved. ");
+                }
+                else if (_playerInput.IsLoadLastSavedGame)
+                {
+                    ReloadGame();
+                }
+
                 _interactiveStorage.Execute(Time.deltaTime);
             }
             catch (GameException ge)
             {
                 Debug.LogError(ge.Data);
             }
+        }
+
+        private void ReloadGame()
+        {
+            _interactiveStorage.Cleanup();
+            _interactiveStorage.Clear();
+            _saveRepository.Load(ref _gameModel);
+
+            new GameInitialization(
+                _interactiveStorage, _gameModel, _playerInput);
+
+            _interactiveStorage.Initialization();
+            Debug.Log("Game is reloaded. ");
         }
 
         void LateUpdate()

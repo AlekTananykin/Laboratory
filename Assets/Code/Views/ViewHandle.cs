@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Code.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace Lab
 
         public void OnDestroy()
         {
+            if (_model is InteractiveObjectModel)
+                (_model as InteractiveObjectModel).IsActive = false;
             _storage?.Remove(this);
         }
     }

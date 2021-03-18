@@ -8,12 +8,8 @@ namespace Lab
         public GameInitialization(
             InteractiveStorage interactiveStorage, GameModel gameModel, 
             IPlayerInput playerInput)
-        {
-            
+        {            
             interactiveStorage.Add(playerInput);
-
-            InitializeGameSaver(
-                interactiveStorage, gameModel, playerInput);
 
             GameObjectFabric fabric = new GameObjectFabric();
             InitializePlayer(
@@ -25,18 +21,12 @@ namespace Lab
             InitializeMine(interactiveStorage, gameModel, fabric);
         }
 
-        private void InitializeGameSaver(InteractiveStorage interactiveStorage, 
-             GameModel gameModel, IPlayerInput playerInput)
-        {
-            GameSaver gameSaver = new GameSaver(playerInput, gameModel);
-            interactiveStorage.Add(gameSaver);
-        }
-
         private void InitializeProximityCard(
             InteractiveStorage interactiveStorage, 
             GameModel gameModel, GameObjectFabric fabric)
         {
-            LinkCopmponents<ProximityCard, SupplyModel>(
+            if (gameModel.ProximityCardModel.IsActive)
+                LinkCopmponents<ProximityCard, SupplyModel>(
                 fabric.GetProximityCard(), 
                 gameModel.ProximityCardModel, interactiveStorage);
         }
@@ -44,28 +34,32 @@ namespace Lab
         private void InitializeMine(InteractiveStorage interactiveStorage, 
             GameModel gameModel, GameObjectFabric fabric)
         {
-            LinkCopmponents<MineView, BombModel>(
-                fabric.GetMine(), gameModel.Bomb, interactiveStorage);
+            if (gameModel.Bomb.IsActive)
+                LinkCopmponents<MineView, BombModel>(
+                    fabric.GetMine(), gameModel.Bomb, interactiveStorage);
         }
 
         private void InitializeBoxSupply(InteractiveStorage interactiveStorage, 
             GameModel gameModel, GameObjectFabric fabric)
         {
-            LinkCopmponents<SupplyKidView, SupplyModel>(
+            if (gameModel.SupplyBox.IsActive)
+                LinkCopmponents<SupplyKidView, SupplyModel>(
                 fabric.GetSupplyBox(), gameModel.SupplyBox, interactiveStorage);
         }
 
         private void InitializeBoxAmmo(InteractiveStorage interactiveStorage,
            GameModel gameModel, GameObjectFabric fabric)
         {
-            LinkCopmponents<AmmoBoxView, SupplyModel>(
+            if (gameModel.AmmoBox.IsActive)
+                LinkCopmponents<AmmoBoxView, SupplyModel>(
                 fabric.GetAmmoBox(), gameModel.AmmoBox, interactiveStorage);
         }
 
         private void InitializeBoxAidKid(InteractiveStorage interactiveStorage,
            GameModel gameModel, GameObjectFabric fabric)
         {
-            LinkCopmponents<FirstAidKidView, SupplyModel>(
+            if (gameModel.AidBoxModel.IsActive)
+                LinkCopmponents<FirstAidKidView, SupplyModel>(
                 fabric.GetAidKidBox(), gameModel.AidBoxModel, interactiveStorage);
         }
 
