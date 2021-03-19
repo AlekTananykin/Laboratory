@@ -30,9 +30,9 @@ namespace Lab
                 _playerInput = new PlayerPcInput();
                 
                 new GameInitialization(
-                    _interactiveStorage, _gameModel, _playerInput);
+                    _interactiveStorage, _playerInput);
 
-                _interactiveStorage.Initialization();
+                _interactiveStorage.Initialization(_gameModel);
             }
             catch (GameException ge)
             {
@@ -64,14 +64,9 @@ namespace Lab
 
         private void ReloadGame()
         {
-            _interactiveStorage.Cleanup();
-            _interactiveStorage.Clear();
             _saveRepository.Load(ref _gameModel);
+            _interactiveStorage.Initialization(_gameModel);
 
-            new GameInitialization(
-                _interactiveStorage, _gameModel, _playerInput);
-
-            _interactiveStorage.Initialization();
             Debug.Log("Game is reloaded. ");
         }
 

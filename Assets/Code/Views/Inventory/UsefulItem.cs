@@ -3,7 +3,7 @@
 namespace Lab
 {
     public abstract class UsefulItem : ViewHandle<SupplyModel>, 
-        IInitialization, IUsefulItem, IReactToHit
+        IInitialization, ICleanup, IUsefulItem, IReactToHit
     {
         protected const int _isNotUtilized = -1;
 
@@ -21,7 +21,7 @@ namespace Lab
         {
             name = _name;
             count = _count;
-            Destroy(this.gameObject);
+            OnDestroy();
         }
 
         public void ReactToHit(int hitCount)
@@ -30,12 +30,13 @@ namespace Lab
                 return;
 
             OnDestroy();
-            Destroy(this.gameObject);
         }
 
-        public void Initialization()
+        public abstract void Initialization(GameModel moldel);
+
+        public void Cleanup()
         {
-            transform.position = _model._position;
+            Destroy(this.gameObject);
         }
     }
 }

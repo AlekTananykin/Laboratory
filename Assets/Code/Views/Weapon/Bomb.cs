@@ -5,14 +5,23 @@ using Lab;
 
 namespace DangerouseItems
 {
-    public abstract class Bomb : ViewHandle<BombModel>, IInitialization
+    public abstract class Bomb : 
+        ViewHandle<BombModel>, ICleanup, IInitialization
     {
-        public void Initialization()
+        public void Cleanup()
         {
-            transform.position = _model._position;
+            Destroy(this.gameObject);
         }
 
-        protected void Explosion(float hitRadius, float explosionForce, Collider bombCollider)
+        public void Initialization(GameModel gameModel)
+        {
+            _model = gameModel.Bomb;
+            transform.position = _model._position;
+            this.gameObject.SetActive(_model.IsActive);
+        }
+
+        protected void Explosion(
+            float hitRadius, float explosionForce, Collider bombCollider)
         {
             Collider[] colliders =
                 Physics.OverlapSphere(this.transform.position, hitRadius);
@@ -31,9 +40,7 @@ namespace DangerouseItems
             }
 
             Debug.Log("Explosion");
-            Destroy(this.gameObject);
+            OnDestroy();
         }
-
-
     }
 }

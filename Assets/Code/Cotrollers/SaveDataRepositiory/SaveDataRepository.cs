@@ -39,8 +39,8 @@ namespace Assets.Code.Cotrollers.SaveDataRepositiory
         {
             if (!Directory.Exists(_path))
                 return;
-            T gd = default(T);
-            _dataSaver.Load(ref gd, Path.Combine(_path, _fileName));
+
+            _dataSaver.Load(ref data, Path.Combine(_path, _fileName));
         }
     }
 }

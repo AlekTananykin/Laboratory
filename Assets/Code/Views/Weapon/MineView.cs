@@ -27,7 +27,7 @@ namespace DangerouseItems
         {
             if (_termsOfUse == key)
             {
-                Destroy(this.gameObject);
+                OnDestroy();
                 return "Mine has been deactivated. ";
             }
 

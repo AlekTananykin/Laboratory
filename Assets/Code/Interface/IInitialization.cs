@@ -8,7 +8,7 @@ namespace Lab
 {
     public interface IInitialization : IInteractionObject
     {
-        void Initialization();
+        void Initialization(GameModel molde);
     }
 
 }

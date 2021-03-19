@@ -7,10 +7,9 @@ using UnityEngine;
 
 namespace Lab
 {
-    public sealed class PlayerView: MonoBehaviour, 
-        IExecute, IInitialization, ILateExecute, ICameraRay, IReactToHit
+    public sealed class PlayerView: ViewHandle<PlayerModel>, 
+        IExecute, IInitialization, ILateExecute, ICleanup, ICameraRay, IReactToHit
     {
-        private PlayerModel _model;
         private PlayerController _playerController;
 
         private CharacterController _charecterController;
@@ -20,14 +19,14 @@ namespace Lab
 
         private InformationScreenView _informationScreen;
 
-        internal void SetModelAndInput(PlayerModel model, IPlayerInput playerInput)
+        internal void SetInput(IPlayerInput playerInput)
         {
-            _model = model;
             _playerInput = playerInput;
         }
 
-        public void Initialization()
+        public void Initialization(GameModel gameModel)
         {
+            _model = gameModel.Player;
             _camera = GameObject.FindGameObjectWithTag(
                "PlayerCamera").GetComponent<Camera>();
 
@@ -101,5 +100,9 @@ namespace Lab
             _informationScreen.Refresh(_model._health, _model._maxHealth);
         }
 
+        public void Cleanup()
+        {
+            //Destroy(this.gameObject);
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace Lab
 
         public bool IsLoadLastSavedGame => Input.GetKeyDown(KeyCode.F3);
 
-        public void Initialization()
+        public void Initialization(GameModel gameModel)
         {
             Debug.Log("Input is initialized. ");
         }

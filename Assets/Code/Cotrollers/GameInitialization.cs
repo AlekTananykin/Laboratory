@@ -6,79 +6,71 @@ namespace Lab
     internal class GameInitialization
     {
         public GameInitialization(
-            InteractiveStorage interactiveStorage, GameModel gameModel, 
+            InteractiveStorage interactiveStorage, 
             IPlayerInput playerInput)
         {            
             interactiveStorage.Add(playerInput);
 
             GameObjectFabric fabric = new GameObjectFabric();
             InitializePlayer(
-                interactiveStorage, gameModel, fabric, playerInput);
-            InitializeBoxSupply(interactiveStorage, gameModel, fabric);
-            InitializeBoxAmmo(interactiveStorage, gameModel, fabric);
-            InitializeBoxAidKid(interactiveStorage, gameModel, fabric);
-            InitializeProximityCard(interactiveStorage, gameModel, fabric);
-            InitializeMine(interactiveStorage, gameModel, fabric);
+                interactiveStorage, fabric, playerInput);
+            InitializeBoxSupply(interactiveStorage, fabric);
+            InitializeBoxAmmo(interactiveStorage, fabric);
+            InitializeBoxAidKid(interactiveStorage, fabric);
+            InitializeProximityCard(interactiveStorage, fabric);
+            InitializeMine(interactiveStorage, fabric);
         }
 
         private void InitializeProximityCard(
             InteractiveStorage interactiveStorage, 
-            GameModel gameModel, GameObjectFabric fabric)
+            GameObjectFabric fabric)
         {
-            if (gameModel.ProximityCardModel.IsActive)
                 LinkCopmponents<ProximityCard, SupplyModel>(
-                fabric.GetProximityCard(), 
-                gameModel.ProximityCardModel, interactiveStorage);
+                fabric.GetProximityCard(), interactiveStorage);
         }
 
         private void InitializeMine(InteractiveStorage interactiveStorage, 
-            GameModel gameModel, GameObjectFabric fabric)
+            GameObjectFabric fabric)
         {
-            if (gameModel.Bomb.IsActive)
                 LinkCopmponents<MineView, BombModel>(
-                    fabric.GetMine(), gameModel.Bomb, interactiveStorage);
+                    fabric.GetMine(), interactiveStorage);
         }
 
         private void InitializeBoxSupply(InteractiveStorage interactiveStorage, 
-            GameModel gameModel, GameObjectFabric fabric)
+            GameObjectFabric fabric)
         {
-            if (gameModel.SupplyBox.IsActive)
                 LinkCopmponents<SupplyKidView, SupplyModel>(
-                fabric.GetSupplyBox(), gameModel.SupplyBox, interactiveStorage);
+                fabric.GetSupplyBox(), interactiveStorage);
         }
 
         private void InitializeBoxAmmo(InteractiveStorage interactiveStorage,
-           GameModel gameModel, GameObjectFabric fabric)
+           GameObjectFabric fabric)
         {
-            if (gameModel.AmmoBox.IsActive)
                 LinkCopmponents<AmmoBoxView, SupplyModel>(
-                fabric.GetAmmoBox(), gameModel.AmmoBox, interactiveStorage);
+                fabric.GetAmmoBox(), interactiveStorage);
         }
 
         private void InitializeBoxAidKid(InteractiveStorage interactiveStorage,
-           GameModel gameModel, GameObjectFabric fabric)
+           GameObjectFabric fabric)
         {
-            if (gameModel.AidBoxModel.IsActive)
                 LinkCopmponents<FirstAidKidView, SupplyModel>(
-                fabric.GetAidKidBox(), gameModel.AidBoxModel, interactiveStorage);
+                fabric.GetAidKidBox(), interactiveStorage);
         }
 
         private void LinkCopmponents<V, M>(
-            GameObject go, M model, IInteractionStorage storage)
+            GameObject go, IInteractionStorage storage)
             where V: ViewHandle<M> 
         {
             V viewHandle = go.GetComponent<V>();
-            viewHandle.SetSettings(model, storage);
             storage.Add(viewHandle);
         }
 
         void InitializePlayer(InteractiveStorage interactiveStorage, 
-            GameModel gameModel, GameObjectFabric fabric, IPlayerInput playerInput)
+            GameObjectFabric fabric, IPlayerInput playerInput)
         {
             var playerObject = fabric.GetPlayer();
             PlayerView playerView = playerObject.GetComponent<PlayerView>();
-
-            playerView.SetModelAndInput(gameModel.Player, playerInput);
+            playerView.SetInput(playerInput);
             interactiveStorage.Add(playerView);
         }
     }
