@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: SupplyData
   m_EditorClassIdentifier: Assembly-CSharp:Lab:SupplyData
-  _position: {x: 553, y: 20.03, z: 354}
+  _position: {x: 553, y: 20.03, z: 364}

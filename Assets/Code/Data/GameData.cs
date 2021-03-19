@@ -25,7 +25,8 @@ namespace Lab
                 AmmoBox = AmmoBox,
                 AidBoxModel = AidBoxModel,
                 ProximityCardModel  = ProximityCardModel,
-                Bomb = Bomb
+                Bomb = Bomb,
+                MiniMapCameraModel = new SupplyModel()
             };
         }
 

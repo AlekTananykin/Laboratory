@@ -13,5 +13,6 @@ namespace Lab
         public SupplyModel AidBoxModel {get;set;}
         public SupplyModel ProximityCardModel { get; set; }
         public BombModel Bomb { get; set; }
+        public SupplyModel MiniMapCameraModel { get; set; }
     }
 }

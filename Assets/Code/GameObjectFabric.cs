@@ -37,6 +37,13 @@ namespace Lab
                 "Prefabs\\Boxes\\box_supply");
         }
 
+        private GameObject _miniMapCamera;
+        public GameObject GetMiniMapCamera()
+        {
+            return CreateObjectFromFile(ref _miniMapCamera,
+                "Prefabs\\UI\\MiniMapCamera");
+        }
+
         private GameObject _proximityCardPrefab;
         internal GameObject GetProximityCard()
         {

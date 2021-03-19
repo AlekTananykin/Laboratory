@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: AmmoBoxData
   m_EditorClassIdentifier: Assembly-CSharp:Lab:SupplyData
-  _position: {x: 553, y: 20.03, z: 355}
+  _position: {x: 553, y: 20.03, z: 357}

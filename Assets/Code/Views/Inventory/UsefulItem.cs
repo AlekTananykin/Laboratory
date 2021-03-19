@@ -3,7 +3,7 @@
 namespace Lab
 {
     public abstract class UsefulItem : ViewHandle<SupplyModel>, 
-        IInitialization, ICleanup, IUsefulItem, IReactToHit
+        IInitialization, IUsefulItem, IReactToHit
     {
         protected const int _isNotUtilized = -1;
 
@@ -34,9 +34,5 @@ namespace Lab
 
         public abstract void Initialization(GameModel moldel);
 
-        public void Cleanup()
-        {
-            Destroy(this.gameObject);
-        }
     }
 }

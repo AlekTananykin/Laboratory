@@ -6,13 +6,8 @@ using Lab;
 namespace DangerouseItems
 {
     public abstract class Bomb : 
-        ViewHandle<BombModel>, ICleanup, IInitialization
+        ViewHandle<BombModel>, IInitialization
     {
-        public void Cleanup()
-        {
-            Destroy(this.gameObject);
-        }
-
         public void Initialization(GameModel gameModel)
         {
             _model = gameModel.Bomb;

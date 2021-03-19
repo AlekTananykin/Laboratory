@@ -19,6 +19,15 @@ namespace Lab
             InitializeBoxAidKid(interactiveStorage, fabric);
             InitializeProximityCard(interactiveStorage, fabric);
             InitializeMine(interactiveStorage, fabric);
+            InitializeMiniMap(interactiveStorage, fabric);
+        }
+
+        private void InitializeMiniMap(
+            InteractiveStorage interactiveStorage, GameObjectFabric fabric)
+        {
+            var minimapObject = fabric.GetMiniMapCamera();
+            MiniMapView mimiMapView = minimapObject.GetComponent<MiniMapView>();
+            interactiveStorage.Add(mimiMapView);
         }
 
         private void InitializeProximityCard(
