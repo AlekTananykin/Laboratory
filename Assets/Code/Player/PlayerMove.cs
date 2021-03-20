@@ -23,7 +23,6 @@ namespace Assets.Code.Player
             _playerMoveInput = new PlayerKeyboardInput();
         }
 
-
         void Start()
         {
             _charController = GetComponent<CharacterController>();

@@ -23,15 +23,16 @@ namespace DangerouseItems
             return _termsOfUse;
         }
 
-        public void Operate(string key)
+        public string Operate(string key)
         {
             if (_termsOfUse == key)
             {
                 Destroy(this.gameObject);
-                return;
+                return "Mine has been deactivated. ";
             }
 
             Explosion();
+            return "Mine has been explosed. ";
         }
 
         private void Explosion()
