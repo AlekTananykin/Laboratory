@@ -11,5 +11,6 @@ namespace Lab
     public sealed class BombData: ScriptableObject
     {
         public Vector3 _position;
+        public string _prefabPath;
     }
 }
