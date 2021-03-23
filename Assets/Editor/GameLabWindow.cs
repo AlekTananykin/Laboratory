@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace LabEditor
@@ -13,6 +14,7 @@ namespace LabEditor
         Vector2 _minaPosition;
         string _prefabPath;
 
+        int _counter;
 
         private void OnGUI()
         {
@@ -23,19 +25,8 @@ namespace LabEditor
             _minaPosition = EditorGUILayout.Vector2Field("Mine Position", _minaPosition);
            
             EditorGUILayout.Separator();
-
-            //_prefab = EditorGUILayout.ObjectField("Object",
-            //    _prefab, typeof(GameObject), true) as GameObject;
-
-            EditorGUILayout.Separator();
             EditorGUILayout.LabelField("Prefab path");
             _prefabPath = EditorGUILayout.TextField(_prefabPath);
-
-            //if (null == _prefab)
-            //{
-            //    EditorGUILayout.HelpBox("Mine prefab is abnsent. ", MessageType.Error);
-            //    return;
-            //}
 
             if (string.IsNullOrEmpty(_prefabPath))
             {
@@ -69,26 +60,27 @@ namespace LabEditor
 
             if (null == _prefab)
             {
-                EditorGUILayout.HelpBox("Prefab path is wrong. ", MessageType.Error);
+                EditorGUILayout.HelpBox(
+                    "Prefab path is wrong. ", MessageType.Error);
                 return;
             }
 
             GameObject go = Instantiate(_prefab);
-            
+            SetObjectDirty(go);
 
             go.transform.position = GetCoordinates(_minaPosition);
 
-            CreateSO("Assets/Resources/GameData/Mines/MineData.asset",
+            CreateSO(string.Format(
+                    "Assets/Resources/GameData/Mines/MineData{0}.asset", 
+                    _counter++),
                 prefabPath,
                 go.transform.position);
         }
 
         private Vector3 GetCoordinates(Vector2 minaPosition)
         {
-
             Ray ray = new Ray(new Vector3(minaPosition.x, 100f, minaPosition.y),
                 new Vector3(0, -1f, 0));
-
 
             if (Physics.Raycast(ray, out RaycastHit hit))
                 return hit.point;
@@ -96,7 +88,8 @@ namespace LabEditor
             throw new Exception("Point can't be achived. ");
         }
 
-        private static void CreateSO(string soPath, string prefabPath, Vector3 position)
+        private static void CreateSO(
+            string soPath, string prefabPath, Vector3 position)
         {
             var asset = ScriptableObject.CreateInstance<BombData>();
             AssetDatabase.CreateAsset(asset, soPath);
@@ -106,6 +99,15 @@ namespace LabEditor
 
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = asset;
+        }
+
+        private void SetObjectDirty(GameObject obj)
+        {
+            if (!Application.isPlaying)
+            {
+                EditorUtility.SetDirty(obj);
+                EditorSceneManager.MarkSceneDirty(obj.scene);
+            }
         }
     }
 }
