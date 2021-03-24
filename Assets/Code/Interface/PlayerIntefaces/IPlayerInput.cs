@@ -20,5 +20,10 @@ namespace Lab
         bool UseWeapon { get; }
         bool UseDevice { get; }
         float SelectWeapon { get; }
+
+        bool IsSaveGame { get; }
+
+        bool IsLoadLastSavedGame { get; }
+
     }
 }

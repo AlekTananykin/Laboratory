@@ -11,5 +11,12 @@ namespace Lab
             :base("SupplyKid", 6)
         {
         }
+
+        public override void Initialization(GameModel model)
+        {
+            _model = model.SupplyBox;
+            transform.position = _model._position;
+            this.gameObject.SetActive(_model.IsActive);
+        }
     }
 }

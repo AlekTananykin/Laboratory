@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Code.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +8,7 @@ using UnityEngine;
 
 namespace Lab
 {
-    [CreateAssetMenu(fileName ="Supply",
-        menuName= "GameData/Models/Supply")]
-    public sealed class SupplyModel: ScriptableObject
+    public sealed class SupplyModel: InteractiveObjectModel
     {
         public Vector3 _position;
     }

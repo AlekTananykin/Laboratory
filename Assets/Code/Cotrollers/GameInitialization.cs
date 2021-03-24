@@ -6,75 +6,80 @@ namespace Lab
     internal class GameInitialization
     {
         public GameInitialization(
-            InteractiveStorage interactiveStorage, GameData gameData)
-        {
-            GameObjectFabric fabric = new GameObjectFabric();
+            InteractiveStorage interactiveStorage, 
+            IPlayerInput playerInput)
+        {            
+            interactiveStorage.Add(playerInput);
 
-            InitializePlayer(interactiveStorage, gameData, fabric);
-            InitializeBoxSupply(interactiveStorage, gameData, fabric);
-            InitializeBoxAmmo(interactiveStorage, gameData, fabric);
-            InitializeBoxAidKid(interactiveStorage, gameData, fabric);
-            InitializeProximityCard(interactiveStorage, gameData, fabric);
-            InitializeMine(interactiveStorage, gameData, fabric);
+            GameObjectFabric fabric = new GameObjectFabric();
+            InitializePlayer(
+                interactiveStorage, fabric, playerInput);
+            InitializeBoxSupply(interactiveStorage, fabric);
+            InitializeBoxAmmo(interactiveStorage, fabric);
+            InitializeBoxAidKid(interactiveStorage, fabric);
+            InitializeProximityCard(interactiveStorage, fabric);
+            InitializeMine(interactiveStorage, fabric);
+            InitializeMiniMap(interactiveStorage, fabric);
+        }
+
+        private void InitializeMiniMap(
+            InteractiveStorage interactiveStorage, GameObjectFabric fabric)
+        {
+            var minimapObject = fabric.GetMiniMapCamera();
+            MiniMapView mimiMapView = minimapObject.GetComponent<MiniMapView>();
+            interactiveStorage.Add(mimiMapView);
         }
 
         private void InitializeProximityCard(
             InteractiveStorage interactiveStorage, 
-            GameData gameData, GameObjectFabric fabric)
+            GameObjectFabric fabric)
         {
-            LinkCopmponents<ProximityCard, SupplyModel>(
-                fabric.GetProximityCard(), 
-                gameData.ProximityCartModel, interactiveStorage);
+                LinkCopmponents<ProximityCard, SupplyModel>(
+                fabric.GetProximityCard(), interactiveStorage);
         }
 
         private void InitializeMine(InteractiveStorage interactiveStorage, 
-            GameData gameData, GameObjectFabric fabric)
+            GameObjectFabric fabric)
         {
-            LinkCopmponents<MineView, BombData>(
-                fabric.GetMine(), gameData.BombData, interactiveStorage);
+                LinkCopmponents<MineView, BombModel>(
+                    fabric.GetMine(), interactiveStorage);
         }
 
         private void InitializeBoxSupply(InteractiveStorage interactiveStorage, 
-            GameData gameData, GameObjectFabric fabric)
+            GameObjectFabric fabric)
         {
-            LinkCopmponents<SupplyKidView, SupplyModel>(
-                fabric.GetSupplyBox(), gameData.SupplyBox, interactiveStorage);
+                LinkCopmponents<SupplyKidView, SupplyModel>(
+                fabric.GetSupplyBox(), interactiveStorage);
         }
 
         private void InitializeBoxAmmo(InteractiveStorage interactiveStorage,
-           GameData gameData, GameObjectFabric fabric)
+           GameObjectFabric fabric)
         {
-            LinkCopmponents<AmmoBoxView, SupplyModel>(
-                fabric.GetAmmoBox(), gameData.AmmoBox, interactiveStorage);
+                LinkCopmponents<AmmoBoxView, SupplyModel>(
+                fabric.GetAmmoBox(), interactiveStorage);
         }
 
         private void InitializeBoxAidKid(InteractiveStorage interactiveStorage,
-           GameData gameData, GameObjectFabric fabric)
+           GameObjectFabric fabric)
         {
-            LinkCopmponents<FirstAidKidView, SupplyModel>(
-                fabric.GetAidKidBox(), gameData.AidBoxModel, interactiveStorage);
+                LinkCopmponents<FirstAidKidView, SupplyModel>(
+                fabric.GetAidKidBox(), interactiveStorage);
         }
 
         private void LinkCopmponents<V, M>(
-            GameObject go, M model, IInteractionStorage storage)
+            GameObject go, IInteractionStorage storage)
             where V: ViewHandle<M> 
-            where M: ScriptableObject
         {
             V viewHandle = go.GetComponent<V>();
-            viewHandle.SetSettings(model, storage);
             storage.Add(viewHandle);
         }
 
         void InitializePlayer(InteractiveStorage interactiveStorage, 
-            GameData gameData, GameObjectFabric fabric)
+            GameObjectFabric fabric, IPlayerInput playerInput)
         {
-            IPlayerInput playerInput = new PlayerPcInput();
-            interactiveStorage.Add(playerInput);
-
             var playerObject = fabric.GetPlayer();
             PlayerView playerView = playerObject.GetComponent<PlayerView>();
-
-            playerView.SetModelAndInput(gameData.Player, playerInput);
+            playerView.SetInput(playerInput);
             interactiveStorage.Add(playerView);
         }
     }

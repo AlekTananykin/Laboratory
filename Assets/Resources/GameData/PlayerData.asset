@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b28cd7981bfd0694f8efdbe3c9128d72, type: 3}
-  m_Name: PlayerModel
+  m_Script: {fileID: 11500000, guid: 0bb6cb80b0dab504c9fffa9e2f7d18bb, type: 3}
+  m_Name: PlayerData
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 3481360659122888567, guid: 06d586f3a686ebc4fb4b2d382f9d9fc0, type: 3}
   _health: 100
   _maxHealth: 100
-  _speed: 15
+  _speed: 12
   _jumpSpeed: 4
-  _position: {x: 551, y: 21, z: 349}
+  _position: {x: 551, y: 21, z: 351}

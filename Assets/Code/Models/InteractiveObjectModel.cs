@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab
+namespace Assets.Code.Models
 {
-    public interface IInitialization : IInteractionObject
+    public abstract class InteractiveObjectModel
     {
-        void Initialization(GameModel molde);
+        public bool IsActive { get; set; } = true;
     }
-
 }

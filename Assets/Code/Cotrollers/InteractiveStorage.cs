@@ -42,32 +42,11 @@ namespace Lab
             }
         }
 
-        public void Remove(IInteractionObject controller)
-        {
-            if (controller is IInitialization initController)
-            {
-                _initializationControllers.Remove(initController);
-            }
-            if (controller is IExecute execController)
-            {
-                _executeControllers.Remove(execController);
-            }
-            if (controller is ILateExecute lateExecController)
-            {
-                _lateExecuteControllers.Remove(lateExecController);
-            }
-            if (controller is ICleanup cleanupController)
-            {
-                _cleanupControllers.Remove(cleanupController);
-                cleanupController.Cleanup();
-            }
-        }
-
-        public void Initialization()
+        public void Initialization(GameModel gamrModel)
         {
             for (int i = 0; i < _initializationControllers.Count; ++i)
             {
-                _initializationControllers[i].Initialization();
+                _initializationControllers[i].Initialization(gamrModel);
             }
         }
 
@@ -93,6 +72,14 @@ namespace Lab
             {
                 _cleanupControllers[i].Cleanup();
             }
+        }
+
+        public void Clear()
+        {
+            _initializationControllers.Clear();
+            _executeControllers.Clear();
+            _lateExecuteControllers.Clear();
+            _cleanupControllers.Clear();
         }
     }
 }

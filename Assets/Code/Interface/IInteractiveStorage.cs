@@ -9,6 +9,5 @@ namespace Lab
     public interface IInteractionStorage
     {
         void Add(IInteractionObject item);
-        void Remove(IInteractionObject item);
     }
 }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4bea8a5330e574faaaf96d9f891d82, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  _playerModelPath: PlayerModel.asset
+  _playerModelPath: PlayerData.asset
   _enemyDataPath: 
-  _supplyDataPath: SupplyBox.asset
-  _ammoDataPath: AmmoBox.asset
-  _aidDataPath: AidBox.asset
-  _proximityCardDataPath: ProximityCard
-  _bombDataPath: Mine.asset
+  _supplyDataPath: SupplyData.asset
+  _ammoDataPath: AmmoBoxData.asset
+  _aidDataPath: AidBoxData.asset
+  _proximityCardDataPath: ProximityCardData.asset
+  _bombDataPath: MineData.asset

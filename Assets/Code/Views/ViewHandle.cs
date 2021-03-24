@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Code.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,13 @@ namespace Lab
     public class ViewHandle<ModelTemplate>: MonoBehaviour, IInteractionObject
     {
         protected ModelTemplate _model;
-        private IInteractionStorage _storage;
-        public void SetSettings(
-            ModelTemplate model, IInteractionStorage storage)
-        {
-            _model = model;
-            _storage = storage;
-        }
-
+       
         public void OnDestroy()
         {
-            _storage?.Remove(this);
+            if (_model is InteractiveObjectModel)
+                (_model as InteractiveObjectModel).IsActive = false;
+
+            gameObject.SetActive(false);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Lab
         {
             name = _name;
             count = _count;
-            Destroy(this.gameObject);
+            OnDestroy();
         }
 
         public void ReactToHit(int hitCount)
@@ -30,12 +30,9 @@ namespace Lab
                 return;
 
             OnDestroy();
-            Destroy(this.gameObject);
         }
 
-        public void Initialization()
-        {
-            transform.position = _model._position;
-        }
+        public abstract void Initialization(GameModel moldel);
+
     }
 }

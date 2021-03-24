@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Code.Cotrollers.SaveDataRepositiory;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,30 +9,77 @@ namespace Lab
     public sealed class GameController : MonoBehaviour
     {
         [SerializeField] private GameData _gameData;
+        private GameModel _gameModel;
 
-        
         InteractiveStorage _interactiveStorage;
+        IPlayerInput _playerInput;
 
-        GameController()
+        SaveDataRepository<GameModel> _saveRepository;
+
+        public GameController()
         {
             _interactiveStorage = new InteractiveStorage();
+            _saveRepository = new SaveDataRepository<GameModel>();
         }
 
         void Start()
         {
-            new GameInitialization(_interactiveStorage, _gameData);
+            try
+            {
+                _gameModel = _gameData.CreateGameModel();
+                _playerInput = new PlayerPcInput();
+                
+                new GameInitialization(
+                    _interactiveStorage, _playerInput);
 
-            _interactiveStorage.Initialization();
+                _interactiveStorage.Initialization(_gameModel);
+            }
+            catch (GameException ge)
+            {
+                Debug.Log(ge.Data);
+            }
         }
 
         void Update()
         {
-            _interactiveStorage.Execute(Time.deltaTime);
+            try
+            {
+                if (_playerInput.IsSaveGame)
+                {
+                    _saveRepository.Save(_gameModel);
+                    Debug.Log("Game is saved. ");
+                }
+                else if (_playerInput.IsLoadLastSavedGame)
+                {
+                    ReloadGame();
+                }
+
+                _interactiveStorage.Execute(Time.deltaTime);
+            }
+            catch (GameException ge)
+            {
+                Debug.LogError(ge.Data);
+            }
+        }
+
+        private void ReloadGame()
+        {
+            _saveRepository.Load(ref _gameModel);
+            _interactiveStorage.Initialization(_gameModel);
+
+            Debug.Log("Game is reloaded. ");
         }
 
         void LateUpdate()
         {
-            _interactiveStorage.LateExecute(Time.deltaTime);
+            try
+            {
+                _interactiveStorage.LateExecute(Time.deltaTime);
+            }
+            catch (GameException ge)
+            {
+                Debug.LogError(ge.Data);
+            }
         }
 
         void OnDestroy()

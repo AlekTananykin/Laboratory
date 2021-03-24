@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DangerouseItems
 {
-    public class GrenadeScript : Bomb, Lab.IReactToHit
+    public class GrenadeView : Bomb, Lab.IExecute, Lab.IReactToHit
     {
         private float _explosionDelay = 3f;
         
@@ -28,7 +28,12 @@ namespace DangerouseItems
             Explosion(_hitRadius, _explosionForce, _collider);
         }
 
-        void Update()
+        void Activate()
+        {
+            _isActivated = true;
+        }
+
+        public void Execute(float deltaTime)
         {
             if (!_isActivated)
                 return;
@@ -38,11 +43,6 @@ namespace DangerouseItems
                 return;
 
             Explosion(_hitRadius, _explosionForce, _collider);
-        }
-
-        void Activate()
-        {
-            _isActivated = true;
         }
     }
 }
